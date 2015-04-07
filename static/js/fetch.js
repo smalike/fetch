@@ -1,6 +1,6 @@
 var fetch, define;
 
-! function () {
+!function () {
     
     // 用来判断是否是数组
     function isArray(arr) {
@@ -146,7 +146,7 @@ var fetch, define;
         for (i = 0; i < len; i++) {
             CacheKey[name[i]] = {dependency: depyObj, callback: callback};
         }
-        CacheLoad[name].resolve(name);
+//        CacheLoad[name].resolve(name);
     }
     
     function timeoutError(deferred, error) {
@@ -155,7 +155,50 @@ var fetch, define;
     
     var CacheKey = {},
         CacheLoad = {},
-        DefDeps = [],
+        DefDeps = {},
+        Event = {
+            eventMap: {},
+            addEventListener: function (eventName, handler, target, args) {
+                var T = this;
+                if (!T.eventMap[eventName]) {
+                    T.eventMap[eventName] = [];
+                }
+                target = target || T;
+                args = args || [];
+                T.eventMap[eventName].push({handler: handler, target: target, args: args});
+                return T;
+            },
+            removeEventListener: function (eventName, handler) {
+                var T = this,
+                    i,
+                    len,
+                    item;
+                if (handler) {
+                    for (i = 0; i < len; i++) {
+                        item = T.eventMap[eventName][i];
+                        if (item.handler === handler) {
+                            item = null;
+                        }
+                    }
+                } else {
+                    T.eventMap[eventName] = [];
+                }
+                return T;
+            },
+            dispatch: function (eventName, e) {
+                var T = this,
+                    i,
+                    len = T.eventMap[eventName].length,
+                    item;
+                for (i = 0; i < len; i++) {
+                    item = T.eventMap[eventName][i];
+                    if (item) {
+                        item.args.unshift(e);
+                        item.handler.apply(item.target, item.args);
+                    }
+                }
+            }
+        },
         head = document.getElementsByTagName("head")[0];
     
     define = function (name, dependencys, callback) {
@@ -164,37 +207,64 @@ var fetch, define;
             item,
             depyObj = {},
             defs = [];
+        if (CacheKey[name]) {
+            return !1;
+        }
         if (isArray(dependencys)) {
             len = dependencys.length;
             for (i = 0; i < len; i++) {
                 item = dependencys[i];
-                if (!CacheKey[name]) {
-//                    defs.push(loadJavascript(item));
-                    loadJavascript(item).done(function (name) {
-                        
-                    });
+                DefDeps[name] = DefDeps[name] || {};
+                if (CacheKey[item]) {
+                    DefDeps[name][item] = !1;
+                } else {
+                    DefDeps[name][item] = !0;
                 }
+                Event.addEventListener(item, function (e, name, callback) {
+                    var item;
+                    for (item in DefDeps[name]) {
+                        if (!item.hasOwnProperty(DefDeps[name])) {
+                            if (!item) {
+                                break;
+                            }
+                        }
+                    }
+                    if (item) {
+                        console.log(name);
+                        Event.dispatch(name);
+                        settingCache(name, DefDeps[name], callback);
+                    }
+                }, null, [name, callback]);
+                loadJavascript(item).done(function (name) {
+                    var item;
+                    for (item in DefDeps[name]) {
+                        if (!item.hasOwnProperty(DefDeps[name])) {
+                            if (!item) {
+                                break;
+                            }
+                        }
+                    }
+                    if (item) {
+                        console.log(name);
+                        Event.dispatch(name);
+                    }
+                });
             }
-//            if (!defs.length) {
-//                settingCache(name, depyObj, callback);
-//            } else {
-                
-//                Deferred.when(defs).done(function (names) {
-//                    settingCache(names, depyObj, callback);
-//                });
-//            }
         } else if (isFunction(dependencys)) {
             callback = dependencys;
             settingCache(name, depyObj, callback);
+            Event.dispatch(name);
         }
     };
     
     fetch = function (name, callback) {
         var item = CacheKey[name];
         if (!item) {
-            CacheLoad[name] = loadJavascript(name);
-            CacheLoad[name].done(function (loadName) {
-                CacheKey[loadName] && requireBack(CacheKey[loadName], callback);
+            Event.addEventListener(name, function (e, name, callback) {
+                CacheKey[name] && requireBack(CacheKey[name], callback);
+            }, null, [name, callback]);
+            loadJavascript(name).done(function (loadName) {
+                // ...
             });
         } else {
             requireBack(item, callback);
