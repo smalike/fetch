@@ -142,9 +142,9 @@ var fetch, define;
         } else {
             names = name;
         }
-        len = name.length;
+        len = names.length;
         for (i = 0; i < len; i++) {
-            CacheKey[name[i]] = {dependency: depyObj, callback: callback};
+            CacheKey[names[i]] = {dependency: depyObj, callback: callback};
         }
 //        CacheLoad[name].resolve(name);
     }
@@ -230,9 +230,8 @@ var fetch, define;
                         }
                     }
                     if (item) {
-                        console.log(name);
-                        Event.dispatch(name);
                         settingCache(name, DefDeps[name], callback);
+                        Event.dispatch(name);
                     }
                 }, null, [name, callback]);
                 loadJavascript(item).done(function (name) {
@@ -245,7 +244,6 @@ var fetch, define;
                         }
                     }
                     if (item) {
-                        console.log(name);
                         Event.dispatch(name);
                     }
                 });
@@ -267,7 +265,11 @@ var fetch, define;
                 // ...
             });
         } else {
-            requireBack(item, callback);
+            if (isFunction(callback)) {
+                requireBack(item, callback);
+            } else {
+                return item.callback(fetch);
+            }
         }
     };
     

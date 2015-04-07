@@ -52,4 +52,6 @@ define("static/js/class", function (fetch, exports, module) {
 
         return Class;
     })();
+    
+    return Class;
 });

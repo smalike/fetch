@@ -6,7 +6,7 @@ define("static/js/event", ["static/js/class"], function (fetch, exports, module)
         
     }
     
-    Class.extend(Event, {
+    Event = Class.extend(Event.prototype, {
         get: function (name) {
             console.log("Event get => " + name);
         }
