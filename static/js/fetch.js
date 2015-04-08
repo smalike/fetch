@@ -190,6 +190,7 @@ var fetch, define;
                     i,
                     len = T.eventMap[eventName].length,
                     item;
+                e = e || {};
                 for (i = 0; i < len; i++) {
                     item = T.eventMap[eventName][i];
                     if (item) {
@@ -200,6 +201,25 @@ var fetch, define;
             }
         },
         head = document.getElementsByTagName("head")[0];
+    
+    function bubbling(name, callback) {
+        var item,
+            isDeps;
+        for (item in DefDeps[name]) {
+            if (!item.hasOwnProperty(DefDeps[name])) {
+                isDeps = DefDeps[name][item];
+                if (!isDeps) {
+                    break;
+                }
+            }
+        }
+        if (isDeps) {
+            if (isFunction(callback)) {
+                settingCache(name, DefDeps[name], callback);
+            }
+            Event.dispatch(name, name);
+        }
+    }
     
     define = function (name, dependencys, callback) {
         var i,
@@ -215,43 +235,21 @@ var fetch, define;
             for (i = 0; i < len; i++) {
                 item = dependencys[i];
                 DefDeps[name] = DefDeps[name] || {};
-                if (CacheKey[item]) {
-                    DefDeps[name][item] = !1;
-                } else {
-                    DefDeps[name][item] = !0;
+                DefDeps[name][item] = !!CacheKey[item];
+                if (!DefDeps[name][item]) {
+                    Event.addEventListener(item, function (e, name, callback) {
+                        DefDeps[name][e] = !0;
+                        bubbling(name, callback);
+                    }, null, [name, callback]);
+                    loadJavascript(item).done(function (name) {
+    //                    bubbling(name);
+                    });
                 }
-                Event.addEventListener(item, function (e, name, callback) {
-                    var item;
-                    for (item in DefDeps[name]) {
-                        if (!item.hasOwnProperty(DefDeps[name])) {
-                            if (!item) {
-                                break;
-                            }
-                        }
-                    }
-                    if (item) {
-                        settingCache(name, DefDeps[name], callback);
-                        Event.dispatch(name);
-                    }
-                }, null, [name, callback]);
-                loadJavascript(item).done(function (name) {
-                    var item;
-                    for (item in DefDeps[name]) {
-                        if (!item.hasOwnProperty(DefDeps[name])) {
-                            if (!item) {
-                                break;
-                            }
-                        }
-                    }
-                    if (item) {
-                        Event.dispatch(name);
-                    }
-                });
             }
         } else if (isFunction(dependencys)) {
             callback = dependencys;
             settingCache(name, depyObj, callback);
-            Event.dispatch(name);
+            Event.dispatch(name, name);
         }
     };
     
