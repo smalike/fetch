@@ -1,4 +1,4 @@
-define("static/js/utils", function (fetch, exports, module) {
+define("assets/utils/util", function (fetch, exports, module) {
     
     "use strict";
     
@@ -13,7 +13,7 @@ define("static/js/utils", function (fetch, exports, module) {
         "[object RegExp]": "regexp",
         "[object String]": "string"
     },
-    Utils = {
+    Util = {
         extend: function () {
             var _this = this,
                 options, name, src, copy, copyIsArray, clone,
@@ -99,6 +99,6 @@ define("static/js/utils", function (fetch, exports, module) {
         return this.hasOwnProperty();
     }
     
-    return Utils;
+    return Util;
     
 });

@@ -1,10 +1,10 @@
 // 提示组件
 // @author jlj
-define("common/widget/ui/tip/tip", ["require", "exports", "module", "common:chinaso/page/controller/utils"], function (require, exports, module) {
+define("assets/widget/ui/tip/tip", ["assets/utils/util"], function (fetch, exports, module) {
     
     "use strict";
     
-    var Utils = require("common:chinaso/page/controller/utils");
+    var Utils = fetch("assets/utils/util");
     
     function Tip(setting) {
         var T = this;
@@ -23,8 +23,8 @@ define("common/widget/ui/tip/tip", ["require", "exports", "module", "common:chin
             hideSpeed: 100,
             
             isLoadCss: !0,
-            baseCssPath: "//music.chinaso.com/static/js/",
-            cssPath: "common/widget/ui/tip/tip.css"
+            baseCssPath: "",
+            cssPath: "assets/widget/ui/tip/tip.css"
         };
         Utils.extend(T.defaults, setting);
         T.defaults.isLoadCss && T.loadCss(T.defaults.baseCssPath + T.defaults.cssPath);

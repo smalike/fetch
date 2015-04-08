@@ -1,5 +1,5 @@
 // 分享跳转平台组件
-define("common:chinaso/page/common/widget/ui/share/to", function (require, exports, module) {
+define("assets/widget/ui/share/to", function (fetch, exports, module) {
     "use strict";
     
     var To = {

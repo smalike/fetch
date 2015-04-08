@@ -1,5 +1,5 @@
 // 分享组件主题样式
-define("common:chinaso/page/common/widget/ui/share/theme", function (require, exports, module) {
+define("assets/widget/ui/share/theme", function (fetch, exports, module) {
     "use strict";
     var Theme = {
         config: {
