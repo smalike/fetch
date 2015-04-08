@@ -5,10 +5,13 @@
         <title>demo</title>
     </head>
     <body>
+        <div id="content">
+            <a href="javascript:void(0);">触发</a>
+        </div>
         <script src="assets/base/fetch.js"></script>
         <script>
-            fetch("assets/utils/event", function (event) {
-                event.get("hah");
+            fetch("assets/widget/ui/tip/tip", function (tip) {
+                tip.build().tip();
             });
         </script>
     </body>

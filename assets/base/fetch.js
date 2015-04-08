@@ -153,7 +153,9 @@ var fetch, define;
         deferred.reject(error);
     }
     
-    var CacheKey = {},
+    var module = {},
+        exports = {},
+        CacheKey = {},
         CacheLoad = {},
         DefDeps = {},
         Event = {
@@ -242,7 +244,7 @@ var fetch, define;
                         bubbling(name, callback);
                     }, null, [name, callback]);
                     loadJavascript(item).done(function (name) {
-    //                    bubbling(name);
+                        // ...
                     });
                 }
             }
@@ -263,17 +265,21 @@ var fetch, define;
                 // ...
             });
         } else {
-            if (isFunction(callback)) {
-                requireBack(item, callback);
-            } else {
-                return item.callback(fetch);
-            }
+            return requireBack(item, callback);
         }
     };
     
     function requireBack(loadItem, callback) {
+        var result = loadItem.callback(fetch, exports, module);
+        if (result) {
+            module.exports = result;
+        } else {
+            module.exports = exports;
+        }
         if (isFunction(callback)) {
-            callback(loadItem.callback(fetch));
+            callback(module.exports);
+        } else {
+            return module.exports;
         }
     }
     

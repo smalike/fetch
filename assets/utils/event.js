@@ -1,16 +1,22 @@
-define("assets/utils/event", ["assets/utils/class"], function (fetch, exports, module) {
+define("assets/utils/event", function (fetch, exports, module) {
     
-    var Class = fetch("assets/utils/class");
-    
-    function Event() {
-        
-    }
-    
-    Event = Class.extend(Event.prototype, {
-        get: function (name) {
-            console.log("Event get => " + name);
+    var Event = {
+        addEventListener: function (element, type, listener, capture) {
+            if (element.addEventListener) {
+                element.addEventListener(type, listener, ~~capture);
+            } else {
+                element.attachEvent("on" + type, function (e) {
+                    listener.call(element, e);
+                });
+            }
+        },
+        removeEventListener: function (element, type, listener, capture) {
+            if (element.removeEventListener) {
+                element.removeEventListener(type, listener, ~~capture);
+            } else {
+                element.detachEvent(type, listener);
+            }
         }
-    });
-    
-    return new Event();
+    };
+    return Event;
 });
