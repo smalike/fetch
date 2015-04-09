@@ -12,27 +12,31 @@
         <div id="preview">
         </div>
 <!--        <script src="http://www.chinaso.com/static/js/jquery-1.9.1.js" type="text/javascript"></script>-->
-        <script src="http://music.chinaso.com/assets/base/fetch.js"></script>
+        <script src="./assets/base/fetch.js"></script>
         <script>
             fetch.config = {
-                baseURL: "http://music.chinaso.com/",
+                baseURL: "./",
                 paths: {
                     "jquery": "http://www.chinaso.com/static/js/jquery-1.9.1"
                 }
             };
-            fetch("jquery", function ($) {
+        </script>
+        <script src="./assets/widget/ui/tip/tip.js"></script>
+        <script>
+            fetch("assets/widget/ui/tip/tip", ["jquery"], function (tip, $) {
                 window.jQuery = window.$ = $;
-                fetch("assets/widget/ui/tip/tip", function (tip) {
-                    var curTip = tip.build({baseCssPath: "http://music.chinaso.com/"});
-                    $("#content").find("a").eq(0).on("click", function () {
-                        curTip.tip(100, 100, "触发成功");
-                    });
+                var curTip = tip.build({baseCssPath: fetch.config.baseURL});
+                $("#content").find("a").eq(0).on("click", function () {
+                    curTip.tip(100, 100, "触发成功");
                 });
+            });
+            
+            fetch("jquery", function ($) {
                 $("#content").find("a").eq(1).on("click", function () {
                     fetch("assets/widget/ui/share/share", function (share) {
                         share.build({
                             eles: document.getElementById("preview"),
-                            cssPath: "http://music.chinaso.com/assets/widget/ui/share/"
+                            cssPath: fetch.config.baseURL + "assets/widget/ui/share/"
                         });
                     });
                 });

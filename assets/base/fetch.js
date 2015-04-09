@@ -173,6 +173,7 @@ var fetch, define;
         CacheKey = {},
         CacheLoad = {},
         DefDeps = {},
+        FetDeps = {},
         Event = {
             eventMap: {},
             addEventListener: function (eventName, handler, target, args) {
@@ -269,13 +270,19 @@ var fetch, define;
             return !1;
         }
         module[name] = {};
+        if (isFunction(dependencys)) {
+            callback = dependencys;
+        }
+        if (FetDeps[name]) {
+            if (!isArray(dependencys)) {
+                dependencys = [];
+            }
+            dependencys = dependencys.concat(FetDeps[name]);
+        }
         if (isArray(dependencys) && dependencys.length) {
             module[name].deps = dependencys;
             getDependency(name, dependencys, callback);
         } else {
-            if (isFunction(dependencys)) {
-                callback = dependencys;
-            }
             settingCache(name, depyObj, callback);
             Event.dispatch(name, name);
         }
@@ -285,21 +292,151 @@ var fetch, define;
         var item = CacheKey[name],
             i,
             len;
-        if (isArray(dependencys) && dependencys.length) {
-            getDependency(name, dependencys, callback);
-        } else {
+        if (isFunction(dependencys)) {
             callback = dependencys;
         }
         if (!item) {
+            if (isArray(dependencys)) {
+                len = dependencys.length;
+                FetDeps[name] = [];
+                for (i = 0; i < len; i++) {
+                    item = dependencys[i];
+                    FetDeps[name].push(item);
+//                    FetDeps[name][item] = !!CacheKey[item];
+                }
+            }
             Event.addEventListener(name, function (e, name, callback) {
+                var i,
+                    len,
+                    item,
+                    desCalls = [];
+                if (isArray(FetDeps[name])) {
+//                    desCalls.push(CacheKey[name].callback);
+                    desCalls.push(requireBack(name));
+                    len = FetDeps[name].length;
+                    for (i = 0; i < len; i++) {
+//                        item = CacheKey[FetDeps[name][i]];
+                        item = requireBack(FetDeps[name][i]);
+                        if (!item) {
+                            return !1;
+                        }
+                        desCalls.push(item);
+                    }
+//                    for (item in FetDeps[name]) {
+//                        if (!item.hasOwnProperty(FetDeps[name])) {
+//                            if (!CacheKey[item]) {
+//                                return !1;
+//                            }
+//                            desCalls.push(CacheKey[item].callback);
+//                        }
+//                    }
+                    callback.apply(fetch, desCalls);
+                    return !1;
+                }
                 requireBack(name, callback);
             }, null, [name, callback]);
             loadJavascript(name).done(function (loadName) {
                 // ...
             });
-        } else if (isArray(dependencys) && dependencys.length) {
-            return requireBack(name, callback);
+        } else {
+            if (!isArray(dependencys) || !dependencys.length) {
+                return requireBack(name, callback);
+            } else {
+                Event.addEventListener(name, function (e, name, callback) {
+                    var i,
+                        len,
+                        item,
+                        desCalls = [];
+                    if (isArray(FetDeps[name]) && FetDeps[name].length) {
+                        desCalls.push(module.exports);
+                        len = FetDeps[name].length;
+                        for (i = 0; i < len; i++) {
+                            item = CacheKey[FetDeps[name][i]];
+                            desCalls.push(item.callback);
+                        }
+                        Function.prototype.apply(callback, desCalls);
+                    }
+                }, null, [name, callback]);
+                
+                len = dependencys.length;
+                for (i = 0; i < len; i++) {
+                    item = dependencys[i];
+                    FetDeps[name] = FetDeps[name] || {};
+                    FetDeps[name][item] = !!CacheKey[item];
+                    if (!FetDeps[name][item]) {
+                        Event.addEventListener(item, function (e, name, callback) {
+                            FetDeps[name][e] = !0;
+                            var item,
+                                isDeps;
+                            for (item in FetDeps[name]) {
+                                if (!item.hasOwnProperty(FetDeps[name])) {
+                                    isDeps = FetDeps[name][item];
+                                    if (!isDeps) {
+                                        break;
+                                    }
+                                }
+                            }
+                            if (isDeps) {
+                                if (isFunction(callback)) {
+                                    settingCache(name, FetDeps[name], callback);
+                                }
+                                Event.dispatch(name, name);
+                            }
+                        }, null, [name, callback]);
+                        loadJavascript(item).done(function (name) {
+                            // ...
+                        });
+                    }
+                }
+                
+                var item,
+                    isDeps;
+                for (item in FetDeps[name]) {
+                    if (!item.hasOwnProperty(FetDeps[name])) {
+                        isDeps = FetDeps[name][item];
+                        if (!isDeps) {
+                            break;
+                        }
+                    }
+                }
+                if (isDeps) {
+                    Event.dispatch(name, name);
+                }
+            }
         }
+//        if (isArray(dependencys) && dependencys.length) {
+//            len = dependencys.length;
+//            for (i = 0; i < len; i++) {
+//                item = dependencys[i];
+//                FetDeps[name] = FetDeps[name] || {};
+//                FetDeps[name][item] = !!CacheKey[item];
+//                if (!FetDeps[name][item]) {
+//                    Event.addEventListener(item, function (e, name, callback) {
+//                        FetDeps[name][e] = !0;
+////                        bubbling(name, callback);
+//                        var item,
+//                            isDeps;
+//                        for (item in FetDeps[name]) {
+//                            if (!item.hasOwnProperty(FetDeps[name])) {
+//                                isDeps = FetDeps[name][item];
+//                                if (!isDeps) {
+//                                    break;
+//                                }
+//                            }
+//                        }
+//                        if (isDeps) {
+//                            if (isFunction(callback)) {
+//                                settingCache(name, FetDeps[name], callback);
+//                            }
+//                            Event.dispatch(name, name);
+//                        }
+//                    }, null, [name, callback]);
+//                    loadJavascript(item).done(function (name) {
+//                        // ...
+//                    });
+//                }
+//            }
+//        }
     };
     
     function requireBack(name, callback) {
