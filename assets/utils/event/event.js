@@ -1,4 +1,4 @@
-define("assets/utils/event", function (fetch, exports, module) {
+define("assets/utils/event/event", function (fetch, exports, module) {
     
     var Event = {
         addEventListener: function (element, type, listener, capture) {
