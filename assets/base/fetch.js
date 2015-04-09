@@ -238,6 +238,27 @@ var fetch, define;
         }
     }
     
+    function getDependency(name, dependencys, callback) {
+        var i,
+            len,
+            item;
+        len = dependencys.length;
+        for (i = 0; i < len; i++) {
+            item = dependencys[i];
+            DefDeps[name] = DefDeps[name] || {};
+            DefDeps[name][item] = !!CacheKey[item];
+            if (!DefDeps[name][item]) {
+                Event.addEventListener(item, function (e, name, callback) {
+                    DefDeps[name][e] = !0;
+                    bubbling(name, callback);
+                }, null, [name, callback]);
+                loadJavascript(item).done(function (name) {
+                    // ...
+                });
+            }
+        }
+    }
+    
     define = function (name, dependencys, callback) {
         var i,
             len,
@@ -250,21 +271,7 @@ var fetch, define;
         module[name] = {};
         if (isArray(dependencys) && dependencys.length) {
             module[name].deps = dependencys;
-            len = dependencys.length;
-            for (i = 0; i < len; i++) {
-                item = dependencys[i];
-                DefDeps[name] = DefDeps[name] || {};
-                DefDeps[name][item] = !!CacheKey[item];
-                if (!DefDeps[name][item]) {
-                    Event.addEventListener(item, function (e, name, callback) {
-                        DefDeps[name][e] = !0;
-                        bubbling(name, callback);
-                    }, null, [name, callback]);
-                    loadJavascript(item).done(function (name) {
-                        // ...
-                    });
-                }
-            }
+            getDependency(name, dependencys, callback);
         } else {
             if (isFunction(dependencys)) {
                 callback = dependencys;
@@ -274,8 +281,15 @@ var fetch, define;
         }
     };
     
-    fetch = function (name, callback) {
-        var item = CacheKey[name];
+    fetch = function (name, dependencys, callback) {
+        var item = CacheKey[name],
+            i,
+            len;
+        if (isArray(dependencys) && dependencys.length) {
+            getDependency(name, dependencys, callback);
+        } else {
+            callback = dependencys;
+        }
         if (!item) {
             Event.addEventListener(name, function (e, name, callback) {
                 requireBack(name, callback);
@@ -283,7 +297,7 @@ var fetch, define;
             loadJavascript(name).done(function (loadName) {
                 // ...
             });
-        } else {
+        } else if (isArray(dependencys) && dependencys.length) {
             return requireBack(name, callback);
         }
     };
