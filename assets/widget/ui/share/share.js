@@ -1,14 +1,14 @@
 // 分享组件
-define("assets/widget/ul/share/component", ["assets/utils/event", "assets/utils/util", "assets/widget/ul/share/theme", "assets/widget/ul/share/to"], function (fetch, exports, module) {
+define("assets/widget/ui/share/share", ["assets/utils/event", "assets/utils/util", "assets/widget/ui/share/theme", "assets/widget/ui/share/to"], function (fetch, exports, module) {
     
     "use strict";
     
     var Event = fetch("assets/utils/event"),
         Util = fetch("assets/utils/util"),
-        Theme = fetch("assets/widget/ul/share/theme"),
-        To = fetch("assets/widget/ul/share/to");
+        Theme = fetch("assets/widget/ui/share/theme"),
+        To = fetch("assets/widget/ui/share/to");
     
-    function Component(setting) {
+    function Share(setting) {
         var _this = this;
         _this.defaults = {
             
@@ -16,7 +16,7 @@ define("assets/widget/ul/share/component", ["assets/utils/event", "assets/utils/
             themeType: "style0-24",
 
             // 主题样式文件路径
-            cssPath: "../assets/widget/ui/share/",
+            cssPath: "assets/widget/ui/share/",
 
             // 显示分享平台元数据列表
             list: ["tsina", "qzone", "tqq", "renren", "douban"],
@@ -68,7 +68,7 @@ define("assets/widget/ul/share/component", ["assets/utils/event", "assets/utils/
         _this.buildShare();
     }
     
-    Util.extend(Component.prototype, {
+    Util.extend(Share.prototype, {
         getEles: function () {
             var _this = this;
             return _this.defaults.eles.length ? _this.defaults.eles : [_this.defaults.eles];
@@ -96,7 +96,7 @@ define("assets/widget/ul/share/component", ["assets/utils/event", "assets/utils/
     
     module.exports = {
         build: function (setting) {
-            var c = new Component(setting);
+            var c = new Share(setting);
             return c;
         }
     };

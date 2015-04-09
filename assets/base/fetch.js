@@ -153,7 +153,11 @@ var fetch, define;
         deferred.reject(error);
     }
     
-    var module = {},
+    var module = {
+            load: function () {
+                // 动态延迟加载
+            }
+        },
         exports = {},
         CacheKey = {},
         CacheLoad = {},
@@ -232,7 +236,9 @@ var fetch, define;
         if (CacheKey[name]) {
             return !1;
         }
+        module[name] = {};
         if (isArray(dependencys)) {
+            module[name].deps = dependencys;
             len = dependencys.length;
             for (i = 0; i < len; i++) {
                 item = dependencys[i];
@@ -259,27 +265,34 @@ var fetch, define;
         var item = CacheKey[name];
         if (!item) {
             Event.addEventListener(name, function (e, name, callback) {
-                CacheKey[name] && requireBack(CacheKey[name], callback);
+                requireBack(name, callback);
             }, null, [name, callback]);
             loadJavascript(name).done(function (loadName) {
                 // ...
             });
         } else {
-            return requireBack(item, callback);
+            return requireBack(name, callback);
         }
     };
     
-    function requireBack(loadItem, callback) {
-        var result = loadItem.callback(fetch, exports, module);
+    function requireBack(name, callback) {
+        var loadItem = CacheKey[name],
+            result,
+            _module;
+        if (!loadItem) {
+            return !1;
+        }
+        _module = module[name];
+        result = loadItem.callback(fetch, exports, _module);
         if (result) {
-            module.exports = result;
-        } else {
-            module.exports = exports;
+            _module.exports = result;
+        } else if (!_module.exports) {
+            _module.exports = exports;
         }
         if (isFunction(callback)) {
-            callback(module.exports);
+            callback(_module.exports);
         } else {
-            return module.exports;
+            return _module.exports;
         }
     }
     

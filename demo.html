@@ -3,15 +3,27 @@
     <head>
         <meta charset="utf-8">
         <title>demo</title>
+        <script src="http://www.chinaso.com/static/js/jquery-1.9.1.js" type="text/javascript"></script>
     </head>
     <body>
         <div id="content">
             <a href="javascript:void(0);">触发</a>
+            <a href="javascript:void(0);">分享</a>
+        </div>
+        <div id="preview">
         </div>
         <script src="assets/base/fetch.js"></script>
         <script>
             fetch("assets/widget/ui/tip/tip", function (tip) {
-                tip.build().tip();
+                var curTip = tip.build();
+                $("#content").find("a").eq(0).on("click", function () {
+                    curTip.tip(100, 100, "触发成功");
+                });
+            });
+            $("#content").find("a").eq(1).on("click", function () {
+                fetch("assets/widget/ui/share/share", function (share) {
+                    share.build({eles: document.getElementById("preview")});
+                });
             });
         </script>
     </body>
