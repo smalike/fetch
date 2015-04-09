@@ -115,21 +115,32 @@ var fetch, define;
     function loadJavascript(name, callback) {
         var script = document.createElement("script"),
             timeoutClearId,
-            deferred;
+            deferred,
+            path;
         deferred = new Deferred();
-        timeoutClearId = setTimeout(timeoutError, fetch.timeout);
-        script.onerror = function () {
-            timeoutError(deferred);
+        timeoutClearId = setTimeout(function () {
+            timeoutError(deferred, "timeout");
+        }, fetch.timeout);
+        script.onerror = function (e) {
+            timeoutError(deferred, e);
         };
         script.onload = script.onreadystatechange = function () {
+            window.event.srcElement.readyState;
             if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete") {
                 clearTimeout(timeoutClearId);
                 deferred.resolve(name);
             }
             script.onload = script.onreadystatechange = null;
         };
+        path = fetch.config.paths[name];
+        if (path) {
+            name = path;
+        }
+        if (!/^(http(s)?:)?\/\//i.test(name)) {
+            name = (fetch.config.baseURL || "") + name;
+        }
         script.src = name + ".js";
-        head.appendChild(script);
+        head.insertBefore(script, head.firstChild);
         return deferred;
     }
     
@@ -237,7 +248,7 @@ var fetch, define;
             return !1;
         }
         module[name] = {};
-        if (isArray(dependencys)) {
+        if (isArray(dependencys) && dependencys.length) {
             module[name].deps = dependencys;
             len = dependencys.length;
             for (i = 0; i < len; i++) {
@@ -254,8 +265,10 @@ var fetch, define;
                     });
                 }
             }
-        } else if (isFunction(dependencys)) {
-            callback = dependencys;
+        } else {
+            if (isFunction(dependencys)) {
+                callback = dependencys;
+            }
             settingCache(name, depyObj, callback);
             Event.dispatch(name, name);
         }
@@ -297,8 +310,12 @@ var fetch, define;
     }
     
     fetch.timeout = 5e3;
+    fetch.config = {
+        
+    };
     define.amd = {
-        version: "0.1.0"
+        version: "0.1.0",
+        jQuery: !0
     };
     
 }(this);

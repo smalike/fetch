@@ -1,5 +1,5 @@
 define("assets/utils/event/publish", ["assets/utils/util", "assets/utils/event/dispatcher"], function (fetch, exprots, module) {
-	function publish (setting) {
+	function Publish (setting) {
 		var arrs,
 			i,
 			keymap = {};
@@ -14,7 +14,7 @@ define("assets/utils/event/publish", ["assets/utils/util", "assets/utils/event/d
 	var Util = fetch("assets/utils/util"),
         Dispatcher = fetch("assets/utils/event/dispatcher");
     
-	Util.extend(publish.prototype, {
+	Util.extend(Publish.prototype, {
 		invert: function (arrs) {
 			var item,
 				i,
@@ -30,6 +30,6 @@ define("assets/utils/event/publish", ["assets/utils/util", "assets/utils/event/d
     
 	module.exports = function (setting) {
 		var s;
-		return s = new publish(setting), s;
+		return s = new Publish(setting), s;
 	}
 });

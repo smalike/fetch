@@ -1,5 +1,5 @@
 define("assets/utils/event/subscriber", ["assets/utils/util", "assets/utils/event/dispatcher"], function (fetch, exports, module) {
-	function subscriber (setting) {
+	function Subscriber (setting) {
 		var arrs = setting.attrs.split(";"),
 			i,
 			keymap = {};
@@ -11,7 +11,7 @@ define("assets/utils/event/subscriber", ["assets/utils/util", "assets/utils/even
 	var Util = fetch("assets/utils/util"),
         Dispatcher = fetch("assets/utils/event/dispatcher");
     
-	Util.extend(subscriber.prototype, {
+	Util.extend(Subscriber.prototype, {
 		invert: function (arrs) {
 			var item,
 				i,
@@ -27,6 +27,6 @@ define("assets/utils/event/subscriber", ["assets/utils/util", "assets/utils/even
     
 	module.exports = function (setting) {
 		var s;
-		return s = new subscriber(setting), s;
+		return s = new Subscriber(setting), s;
 	}
 });

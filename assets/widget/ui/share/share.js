@@ -1,9 +1,9 @@
 // 分享组件
-define("assets/widget/ui/share/share", ["assets/utils/event", "assets/utils/util", "assets/widget/ui/share/theme", "assets/widget/ui/share/to"], function (fetch, exports, module) {
+define("assets/widget/ui/share/share", ["assets/utils/event/event", "assets/utils/util", "assets/widget/ui/share/theme", "assets/widget/ui/share/to"], function (fetch, exports, module) {
     
     "use strict";
     
-    var Event = fetch("assets/utils/event"),
+    var Event = fetch("assets/utils/event/event"),
         Util = fetch("assets/utils/util"),
         Theme = fetch("assets/widget/ui/share/theme"),
         To = fetch("assets/widget/ui/share/to");
