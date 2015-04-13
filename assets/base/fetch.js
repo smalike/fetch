@@ -155,7 +155,9 @@ var fetch, define;
         }
         len = names.length;
         for (i = 0; i < len; i++) {
-            CacheKey[names[i]] = {dependency: depyObj, callback: callback};
+            if (!CacheKey[names[i]]) {
+                CacheKey[names[i]] = {dependency: depyObj, callback: callback};
+            }
         }
 //        CacheLoad[name].resolve(name);
     }
@@ -253,9 +255,12 @@ var fetch, define;
                     DefDeps[name][e] = !0;
                     bubbling(name, callback);
                 }, null, [name, callback]);
-                loadJavascript(item).done(function (name) {
-                    // ...
-                });
+                if (!module[item]) {
+                    module[item] = {deps: []};
+                    loadJavascript(item).done(function (name) {
+                        // ...
+                    });
+                }
             }
         }
     }
@@ -269,7 +274,7 @@ var fetch, define;
         if (CacheKey[name]) {
             return !1;
         }
-        module[name] = {};
+        module[name] = module[name] || {deps: []};
         if (isFunction(dependencys)) {
             callback = dependencys;
         }
@@ -279,6 +284,7 @@ var fetch, define;
             }
             dependencys = dependencys.concat(FetDeps[name]);
         }
+        module[name].callback = callback;
         if (isArray(dependencys) && dependencys.length) {
             module[name].deps = dependencys;
             getDependency(name, dependencys, callback);
@@ -335,9 +341,16 @@ var fetch, define;
                 }
                 requireBack(name, callback);
             }, null, [name, callback]);
-            loadJavascript(name).done(function (loadName) {
-                // ...
-            });
+            if (!module[name]) {
+                loadJavascript(name).done(function (loadName) {
+                    // ...
+                });
+            } else {
+                if (FetDeps[name]) {
+                    module[name].deps = module[name].deps.concat(FetDeps[name]);
+                    getDependency(name, FetDeps[name], callback);
+                }
+            }
         } else {
             if (!isArray(dependencys) || !dependencys.length) {
                 return requireBack(name, callback);
@@ -447,7 +460,13 @@ var fetch, define;
             return !1;
         }
         _module = module[name];
-        result = loadItem.callback(fetch, exports, _module);
+        if (_module.exports) {
+            if (isFunction(callback)) {
+                return callback(_module.exports);
+            }
+            return _module.exports;
+        }
+        result = _module.callback(fetch, exports, _module);
         if (result) {
             _module.exports = result;
         } else if (!_module.exports) {
