@@ -208,8 +208,9 @@ var fetch, define;
             dispatch: function (eventName, e) {
                 var T = this,
                     i,
-                    len = T.eventMap[eventName].length,
+                    len,
                     item;
+                T.eventMap[eventName] && (len = T.eventMap[eventName].length);
                 e = e || {};
                 for (i = 0; i < len; i++) {
                     item = T.eventMap[eventName][i];
@@ -244,16 +245,19 @@ var fetch, define;
     function getDependency(name, dependencys, callback) {
         var i,
             len,
-            item;
+            item,
+            depsIsLoad;
         len = dependencys.length;
         for (i = 0; i < len; i++) {
             item = dependencys[i];
             DefDeps[name] = DefDeps[name] || {};
             DefDeps[name][item] = !!CacheKey[item];
             if (!DefDeps[name][item]) {
+                depsIsLoad = !0;
                 Event.addEventListener(item, function (e, name, callback) {
                     DefDeps[name][e] = !0;
                     bubbling(name, callback);
+                    Event.removeEventListener(e);
                 }, null, [name, callback]);
                 if (!module[item]) {
                     module[item] = {deps: []};
@@ -263,6 +267,7 @@ var fetch, define;
                 }
             }
         }
+        return depsIsLoad;
     }
     
     define = function (name, dependencys, callback) {
@@ -287,12 +292,27 @@ var fetch, define;
         module[name].callback = callback;
         if (isArray(dependencys) && dependencys.length) {
             module[name].deps = dependencys;
-            getDependency(name, dependencys, callback);
+            if (!getDependency(name, dependencys, callback)) {
+                Event.dispatch(name, name);
+            }
         } else {
             settingCache(name, depyObj, callback);
             Event.dispatch(name, name);
         }
     };
+    
+    // 赋值加载依赖关系，用于依赖加载
+    function settingFetDeps(name, dependencys) {
+        var i,
+            len,
+            item;
+        len = dependencys.length;
+        FetDeps[name] = FetDeps[name] || [];
+        for (i = 0; i < len; i++) {
+            item = dependencys[i];
+            FetDeps[name].push(item);
+        }
+    }
     
     fetch = function (name, dependencys, callback) {
         var item = CacheKey[name],
@@ -303,13 +323,7 @@ var fetch, define;
         }
         if (!item) {
             if (isArray(dependencys)) {
-                len = dependencys.length;
-                FetDeps[name] = [];
-                for (i = 0; i < len; i++) {
-                    item = dependencys[i];
-                    FetDeps[name].push(item);
-//                    FetDeps[name][item] = !!CacheKey[item];
-                }
+                settingFetDeps(name, dependencys);
             }
             Event.addEventListener(name, function (e, name, callback) {
                 var i,
@@ -317,29 +331,20 @@ var fetch, define;
                     item,
                     desCalls = [];
                 if (isArray(FetDeps[name])) {
-//                    desCalls.push(CacheKey[name].callback);
                     desCalls.push(requireBack(name));
                     len = FetDeps[name].length;
                     for (i = 0; i < len; i++) {
-//                        item = CacheKey[FetDeps[name][i]];
                         item = requireBack(FetDeps[name][i]);
                         if (!item) {
                             return !1;
                         }
                         desCalls.push(item);
                     }
-//                    for (item in FetDeps[name]) {
-//                        if (!item.hasOwnProperty(FetDeps[name])) {
-//                            if (!CacheKey[item]) {
-//                                return !1;
-//                            }
-//                            desCalls.push(CacheKey[item].callback);
-//                        }
-//                    }
                     callback.apply(fetch, desCalls);
                     return !1;
                 }
                 requireBack(name, callback);
+                Event.removeEventListener(e);
             }, null, [name, callback]);
             if (!module[name]) {
                 loadJavascript(name).done(function (loadName) {
@@ -348,7 +353,9 @@ var fetch, define;
             } else {
                 if (FetDeps[name]) {
                     module[name].deps = module[name].deps.concat(FetDeps[name]);
-                    getDependency(name, FetDeps[name], callback);
+                    if (!getDependency(name, FetDeps[name], callback)) {
+                        Event.dispatch(name, name);
+                    }
                 }
             }
         } else {
@@ -361,95 +368,29 @@ var fetch, define;
                         item,
                         desCalls = [];
                     if (isArray(FetDeps[name]) && FetDeps[name].length) {
-                        desCalls.push(module.exports);
+                        desCalls.push(requireBack(name));
                         len = FetDeps[name].length;
                         for (i = 0; i < len; i++) {
-                            item = CacheKey[FetDeps[name][i]];
-                            desCalls.push(item.callback);
+                            item = requireBack(FetDeps[name][i]);
+                            if (!item) {
+                                return !1;
+                            }
+                            desCalls.push(item);
                         }
-                        Function.prototype.apply(callback, desCalls);
+                        callback.apply(fetch, desCalls);
                     }
+                    Event.removeEventListener(e);
                 }, null, [name, callback]);
                 
-                len = dependencys.length;
-                for (i = 0; i < len; i++) {
-                    item = dependencys[i];
-                    FetDeps[name] = FetDeps[name] || {};
-                    FetDeps[name][item] = !!CacheKey[item];
-                    if (!FetDeps[name][item]) {
-                        Event.addEventListener(item, function (e, name, callback) {
-                            FetDeps[name][e] = !0;
-                            var item,
-                                isDeps;
-                            for (item in FetDeps[name]) {
-                                if (!item.hasOwnProperty(FetDeps[name])) {
-                                    isDeps = FetDeps[name][item];
-                                    if (!isDeps) {
-                                        break;
-                                    }
-                                }
-                            }
-                            if (isDeps) {
-                                if (isFunction(callback)) {
-                                    settingCache(name, FetDeps[name], callback);
-                                }
-                                Event.dispatch(name, name);
-                            }
-                        }, null, [name, callback]);
-                        loadJavascript(item).done(function (name) {
-                            // ...
-                        });
+                settingFetDeps(name, dependencys);
+                if (FetDeps[name]) {
+                    module[name].deps = module[name].deps.concat(FetDeps[name]);
+                    if (!getDependency(name, FetDeps[name], callback)) {
+                        Event.dispatch(name, name);
                     }
-                }
-                
-                var item,
-                    isDeps;
-                for (item in FetDeps[name]) {
-                    if (!item.hasOwnProperty(FetDeps[name])) {
-                        isDeps = FetDeps[name][item];
-                        if (!isDeps) {
-                            break;
-                        }
-                    }
-                }
-                if (isDeps) {
-                    Event.dispatch(name, name);
                 }
             }
         }
-//        if (isArray(dependencys) && dependencys.length) {
-//            len = dependencys.length;
-//            for (i = 0; i < len; i++) {
-//                item = dependencys[i];
-//                FetDeps[name] = FetDeps[name] || {};
-//                FetDeps[name][item] = !!CacheKey[item];
-//                if (!FetDeps[name][item]) {
-//                    Event.addEventListener(item, function (e, name, callback) {
-//                        FetDeps[name][e] = !0;
-////                        bubbling(name, callback);
-//                        var item,
-//                            isDeps;
-//                        for (item in FetDeps[name]) {
-//                            if (!item.hasOwnProperty(FetDeps[name])) {
-//                                isDeps = FetDeps[name][item];
-//                                if (!isDeps) {
-//                                    break;
-//                                }
-//                            }
-//                        }
-//                        if (isDeps) {
-//                            if (isFunction(callback)) {
-//                                settingCache(name, FetDeps[name], callback);
-//                            }
-//                            Event.dispatch(name, name);
-//                        }
-//                    }, null, [name, callback]);
-//                    loadJavascript(item).done(function (name) {
-//                        // ...
-//                    });
-//                }
-//            }
-//        }
     };
     
     function requireBack(name, callback) {

@@ -23,15 +23,15 @@
         </script>
         <script src="./assets/widget/ui/tip/tip.js"></script>
         <script>
-            fetch("assets/widget/ui/tip/tip", ["jquery"], function (tip, $) {
-                window.jQuery = window.$ = $;
-                var curTip = tip.build({baseCssPath: fetch.config.baseURL});
-                $("#content").find("a").eq(0).on("click", function () {
-                    curTip.tip(100, 100, "触发成功");
-                });
-            });
             
             fetch("jquery", function ($) {
+                $("#content").find("a").eq(0).on("click", function () {
+                    window.jQuery = window.$ = $;
+                    fetch("assets/widget/ui/tip/tip", ["jquery"], function (tip, $) {
+                        var curTip = tip.build({baseCssPath: fetch.config.baseURL});
+                        curTip.tip(100, 100, "触发成功");
+                    });
+                });
                 $("#content").find("a").eq(1).on("click", function () {
                     fetch("assets/widget/ui/share/share", function (share) {
                         share.build({
