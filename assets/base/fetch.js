@@ -1,4 +1,11 @@
-var fetch, define;
+
+// fetch 加载组件主文件
+
+// 模块请求加载对象
+var fetch,
+    
+    // 模块定义函数
+    define;
 
 !function () {
     
@@ -12,8 +19,11 @@ var fetch, define;
         return Object.prototype.toString.call(fun) === "[object Function]";
     }
     
+    // 利用 Deferred（Promise） 模式处理异步加载执行方式
     function Deferred() {
         var T = this;
+        
+        // 加载状态
         T.status = "PENDING";
         T.doResolves = [];
         T.doRejecteds = [];
@@ -90,28 +100,15 @@ var fetch, define;
         return deferred;
     };
     
-    function load(name, callback) {
-        var suffix = name.indexOf(".");
-        switch (name.substring(suffix)) {
-                case "css":
-                    loadCss(name, callback);
-                    break;
-                case "js":
-                    name = name.substring(0, suffix);
-                    loadJavascript(name, callback);
-                    break;
-                default:
-                    loadJavascript(name, callback);
-                    break;
-        }
-    }
-    
+    // 加载css文件
+    // 未完成
     function loadCss(name, callback) {
         var link = document.createElement("link");
         link.rel = "stylesheet";
         link.href = name;
     }
     
+    // 加载 javascript 元素，利用 Deferred 模式提供异步处理方式
     function loadJavascript(name, callback) {
         var script = document.createElement("script"),
             timeoutClearId,
@@ -144,38 +141,38 @@ var fetch, define;
         return deferred;
     }
     
-    function settingCache(name, depyObj, callback) {
-        var i,
-            len,
-            names;
-        if (!isArray(name)) {
-            names = [name];
-        } else {
-            names = name;
-        }
-        len = names.length;
-        for (i = 0; i < len; i++) {
-            if (!CacheKey[names[i]]) {
-                CacheKey[names[i]] = {dependency: depyObj, callback: callback};
-            }
-        }
-//        CacheLoad[name].resolve(name);
-    }
-    
+    // 加载超时
+    // 执行失败deferred
     function timeoutError(deferred, error) {
         deferred.reject(error);
     }
     
+    // 模块接口对象
     var module = {
+        
+            // 动态延迟加载
+            // 为实现
             load: function () {
-                // 动态延迟加载
             }
         },
+        
+        // 接口暴漏属性
         exports = {},
+        
+        // 缓存模块定义
+        // 只有所有依赖全部加载完成才会存储
         CacheKey = {},
-        CacheLoad = {},
+        
+        // 依赖对象
+        // 存储模块定义的依赖加载项
         DefDeps = {},
+        
+        // 请求依赖加载对象
+        // 存储请求时的依赖项
         FetDeps = {},
+        
+        // 自定义事件对象
+        // 用于自定义事件绑定、触发、删除
         Event = {
             eventMap: {},
             addEventListener: function (eventName, handler, target, args) {
@@ -221,8 +218,31 @@ var fetch, define;
                 }
             }
         },
+        
+        // 页面head元素
+        // 用来添加javascript标签
         head = document.getElementsByTagName("head")[0];
     
+    // 设置缓存加载完成的模块定义
+    function settingCache(name, depyObj, callback) {
+        var i,
+            len,
+            names;
+        if (!isArray(name)) {
+            names = [name];
+        } else {
+            names = name;
+        }
+        len = names.length;
+        for (i = 0; i < len; i++) {
+            if (!CacheKey[names[i]]) {
+                CacheKey[names[i]] = {dependency: depyObj, callback: callback};
+            }
+        }
+    }
+    
+    // 判断当前模块依赖加载是否完成
+    // 加载完成执行向上冒泡触发
     function bubbling(name, callback) {
         var item,
             isDeps;
@@ -242,6 +262,8 @@ var fetch, define;
         }
     }
     
+    // 处理依赖加载
+    // 绑定响应事件，利用事件冒泡模式处理多层依赖加载完成
     function getDependency(name, dependencys, callback) {
         var i,
             len,
@@ -270,6 +292,61 @@ var fetch, define;
         return depsIsLoad;
     }
     
+    // 处理fetch请求的依赖加载
+    function getFetDependency(name, dependencys, callback) {
+        if (isArray(dependencys)) {
+            settingFetDeps(name, dependencys);
+        }
+        Event.addEventListener(name, function (e, name, callback) {
+            var i,
+                len,
+                item,
+                desCalls = [];
+            Event.removeEventListener(e);
+            if (isArray(FetDeps[name])) {
+                desCalls.push(requireBack(name));
+                len = FetDeps[name].length;
+                for (i = 0; i < len; i++) {
+                    item = requireBack(FetDeps[name][i]);
+                    if (!item) {
+                        return !1;
+                    }
+                    desCalls.push(item);
+                }
+                callback.apply(fetch, desCalls);
+                return !1;
+            }
+            requireBack(name, callback);
+        }, null, [name, callback]);
+        if (!module[name]) {
+            loadJavascript(name).done(function (loadName) {
+                // ...
+            });
+        } else {
+            if (FetDeps[name]) {
+                module[name].deps = module[name].deps.concat(FetDeps[name]);
+                if (!getDependency(name, FetDeps[name], callback)) {
+                    Event.dispatch(name, name);
+                }
+            }
+        }
+    }
+    
+    // 赋值加载依赖关系，用于请求时的依赖加载
+    function settingFetDeps(name, dependencys) {
+        var i,
+            len,
+            item;
+        len = dependencys.length;
+        FetDeps[name] = FetDeps[name] || [];
+        for (i = 0; i < len; i++) {
+            item = dependencys[i];
+            FetDeps[name].push(item);
+        }
+    }
+    
+    // 模块定义函数
+    // 定义模块加载名称、依赖以及回调执行方法
     define = function (name, dependencys, callback) {
         var i,
             len,
@@ -301,19 +378,7 @@ var fetch, define;
         }
     };
     
-    // 赋值加载依赖关系，用于依赖加载
-    function settingFetDeps(name, dependencys) {
-        var i,
-            len,
-            item;
-        len = dependencys.length;
-        FetDeps[name] = FetDeps[name] || [];
-        for (i = 0; i < len; i++) {
-            item = dependencys[i];
-            FetDeps[name].push(item);
-        }
-    }
-    
+    // 请求组件函数
     fetch = function (name, dependencys, callback) {
         var item = CacheKey[name],
             i,
@@ -322,77 +387,18 @@ var fetch, define;
             callback = dependencys;
         }
         if (!item) {
-            if (isArray(dependencys)) {
-                settingFetDeps(name, dependencys);
-            }
-            Event.addEventListener(name, function (e, name, callback) {
-                var i,
-                    len,
-                    item,
-                    desCalls = [];
-                if (isArray(FetDeps[name])) {
-                    desCalls.push(requireBack(name));
-                    len = FetDeps[name].length;
-                    for (i = 0; i < len; i++) {
-                        item = requireBack(FetDeps[name][i]);
-                        if (!item) {
-                            return !1;
-                        }
-                        desCalls.push(item);
-                    }
-                    callback.apply(fetch, desCalls);
-                    return !1;
-                }
-                requireBack(name, callback);
-                Event.removeEventListener(e);
-            }, null, [name, callback]);
-            if (!module[name]) {
-                loadJavascript(name).done(function (loadName) {
-                    // ...
-                });
-            } else {
-                if (FetDeps[name]) {
-                    module[name].deps = module[name].deps.concat(FetDeps[name]);
-                    if (!getDependency(name, FetDeps[name], callback)) {
-                        Event.dispatch(name, name);
-                    }
-                }
-            }
+            getFetDependency(name, dependencys, callback);
         } else {
             if (!isArray(dependencys) || !dependencys.length) {
                 return requireBack(name, callback);
             } else {
-                Event.addEventListener(name, function (e, name, callback) {
-                    var i,
-                        len,
-                        item,
-                        desCalls = [];
-                    if (isArray(FetDeps[name]) && FetDeps[name].length) {
-                        desCalls.push(requireBack(name));
-                        len = FetDeps[name].length;
-                        for (i = 0; i < len; i++) {
-                            item = requireBack(FetDeps[name][i]);
-                            if (!item) {
-                                return !1;
-                            }
-                            desCalls.push(item);
-                        }
-                        callback.apply(fetch, desCalls);
-                    }
-                    Event.removeEventListener(e);
-                }, null, [name, callback]);
-                
-                settingFetDeps(name, dependencys);
-                if (FetDeps[name]) {
-                    module[name].deps = module[name].deps.concat(FetDeps[name]);
-                    if (!getDependency(name, FetDeps[name], callback)) {
-                        Event.dispatch(name, name);
-                    }
-                }
+                getFetDependency(name, dependencys, callback);
             }
         }
     };
     
+    // 请求回调函数
+    // 执行请求模块回调，添加模块处理接口
     function requireBack(name, callback) {
         var loadItem = CacheKey[name],
             result,
@@ -420,12 +426,19 @@ var fetch, define;
         }
     }
     
+    // 请求超时事件
     fetch.timeout = 5e3;
+    
+    // 请求配置属性
     fetch.config = {
         
     };
+    
+    // 符合AMD模式
     define.amd = {
         version: "0.1.0",
+        
+        // 可加载jQuery库
         jQuery: !0
     };
     
