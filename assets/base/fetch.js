@@ -206,11 +206,12 @@ var fetch,
                 var T = this,
                     i,
                     len,
-                    item;
-                T.eventMap[eventName] && (len = T.eventMap[eventName].length);
+                    item,
+                    _map = T.eventMap[eventName];
+                _map && (len = _map.length);
                 e = e || {};
                 for (i = 0; i < len; i++) {
-                    item = T.eventMap[eventName][i];
+                    item = _map[i];
                     if (item) {
                         item.args.unshift(e);
                         item.handler.apply(item.target, item.args);
