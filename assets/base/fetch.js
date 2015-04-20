@@ -135,6 +135,9 @@ var fetch,
         if (!/^(http(s)?:)?\/\//i.test(name)) {
             name = (fetch.config.baseURL || "") + name;
         }
+        if (fetch.config.debug) {
+            name = "src/" + name;
+        }
         script.src = name + ".js";
         head.insertBefore(script, head.firstChild);
         return deferred;
