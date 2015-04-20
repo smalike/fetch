@@ -122,7 +122,6 @@ var fetch,
             timeoutError(deferred, e);
         };
         script.onload = script.onreadystatechange = function () {
-            window.event.srcElement.readyState;
             if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete") {
                 clearTimeout(timeoutClearId);
                 deferred.resolve(name);
