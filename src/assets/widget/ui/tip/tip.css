@@ -1,0 +1,32 @@
+.player_tooltip {
+  z-index: 999999!important;
+  opacity: 1!important;
+}
+.tooltip {
+  position: relative;
+  width: auto;
+  line-height: 22px;
+}
+.tooltipMsg {
+/*  position: absolute;*/
+  display: hidden;
+  padding: 3px;
+  border: 1px solid #e7bc8e;
+  background-color: #fff;
+  -webkit-box-shadow: 0 0 10px #000;
+  -moz-box-shadow: 0 0 10px #000;
+  color: #eaa153;
+  text-align: center;
+  font-size: 13px;
+  line-height: 22px;
+}
+.tips_sanjiao {
+  position: absolute;
+/*
+  top: 28px;
+  left: 30px;
+*/
+  width: 16px;
+  height: 12px;
+/*  background: url(../images/tip_sanjiao.png) no-repeat;*/
+}
