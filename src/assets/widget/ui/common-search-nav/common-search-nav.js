@@ -1,11 +1,13 @@
-﻿ /**
+ /**
   * File Contents Outline : 更改频道样式
   * Author :  wuxiumei（wuxiumei@panguso.com）
   * Function: 主要修改导航中当前频道（包含样式）及频道链接
   */
  (function() {
     var CHANNELS = {
-        house:{ //房产搜索
+        
+        // 房产搜索
+        house:{
             title:"房产",
             sid:"nav_house",
             lid:"nav_house_link",
@@ -14,7 +16,9 @@
             useable:false,
             current:true        
         },
-        tuan:{ //房产搜索
+        
+        // 房产搜索
+        tuan:{
             title:"团购",
             sid:"nav_tuan",
             lid:"nav_tuan_link",
@@ -23,7 +27,9 @@
             useable:false,
             current:true        
         },
-        news:{ //新闻搜索
+        
+        // 新闻搜索
+        news:{
             title:"新闻",
             sid:"nav_news",
             lid:"nav_news_link",
@@ -39,7 +45,9 @@
             sprefix:"",
             useable:true    
         },
-        www:{ //网页搜索
+        
+        // 网页搜索
+        www:{
             title:"网页",
             sid:"nav_web",
             lid:"nav_web_link",
@@ -47,7 +55,9 @@
             sprefix:"search/pagesearch.htm",
             useable:true    
         },
-        china123:{ //导航搜索
+        
+        // 导航搜索
+        china123:{
             title:"导航",
             sid:"nav_123",
             lid:"nav_123_link",
@@ -55,7 +65,9 @@
             sprefix:"",
             useable:true    
         },
-        image:{ //图片搜索
+        
+        // 图片搜索
+        image:{
             title:"图片",
             sid:"nav_image",
             lid:"nav_image_link",
@@ -63,7 +75,9 @@
             sprefix:"imagesearch.htm",
             useable:true    
         },
-        video:{ //视频搜索
+        
+        // 视频搜索
+        video:{
             title:"视频",
             sid:"nav_video",
             lid:"nav_video_link",
@@ -71,7 +85,9 @@
             sprefix:"",
             useable:true    
         },
-        wenda:{ //问答搜索
+        
+        // 问答搜索
+        wenda:{
             title:"问答",
             sid:"nav_wenda",
             lid:"nav_wenda_link",
@@ -79,7 +95,9 @@
             sprefix:"",
             useable:true    
         },
-        map:{ //地图搜索
+        
+        // 地图搜索
+        map:{
             title:"地图",
             sid:"nav_map",
             lid:"nav_map_link",
@@ -87,7 +105,9 @@
             sprefix:"",
             useable:true    
         },
-        baike:{ //百科搜索
+        
+        // 百科搜索
+        baike:{
             title:"百科",
             sid:"nav_baike",
             lid:"nav_baike_link",
@@ -95,7 +115,9 @@
             sprefix:"",
             useable:true
         },
-        /*more:{ //更多
+        
+        // 更多
+        /*more:{
             title:"更多",
             sid:"nav_more",
             lid:"nav_more_link",
@@ -103,7 +125,9 @@
             sprefix:"",
             useable:false   
         },*/
-        cert:{ //国搜认证
+        
+        // 国搜认证
+        cert:{
             title:"认证",
             sid:"nav_cert",
             lid:"nav_cert_link",
@@ -111,7 +135,9 @@
             sprefix:"",
             useable:true
         },
-        app:{ //国搜应用
+        
+        // 国搜应用
+        app:{
             title:"应用",
             sid:"nav_app",
             lid:"nav_app_link",
@@ -264,7 +290,8 @@
                 }*/
             ]  
         }
-    },  
+    },
+        
     /*
     * 频道和频道div的id对应关系，用于从URL中得到当前的频道Id
     * 用于未配置当前频道时，当前频道的标红处理
@@ -323,112 +350,9 @@
                          +CHANNELS[i].title+'</a></span>'
                 }
             }
-            /*if (channelObj && !isShowBanner) {
-                channelObj = CHANNELS["verticalSearch"];
-                speedCount = channelObj.items.length - (gridClumCount - (gridClumCount - (channelObj.items.length % gridClumCount)));
-                html += '<span class="nav_more" id="Id_nav_more">'+
-                            '<i>更多</i>'+
-                            '<div class="news_icon_bg hide" id="Id_news_icon_bg">'+
-                                '<div class="news_icon_title">垂搜频道</div>'+
-                                '<ul class="list65">'+
-                                  '<li><div class="verticalso_icon"><a target="_blank" href="http://nation.chinaso.com" class="guoqing"></a></div><a target="_blank" href="http://nation.chinaso.com">国情</a></li>'+
-                                  '<li><div class="verticalso_icon"><a target="_blank" href="http://politics.chinaso.com" class="shizheng"></a></div><a target="_blank" href="http://politics.chinaso.com">时政</a></li>'+
-                                  '<li><div class="verticalso_icon"><a target="_blank" href="http://local.chinaso.com" class="difang"></a></div><a target="_blank" href="http://local.chinaso.com">地方</a></li>'+
-                                  '<li><div class="verticalso_icon"><a target="_blank" href="http://world.chinaso.com" class="guoji"></a></div><a target="_blank" href="http://world.chinaso.com">国际</a></li>'+
-                                  '<li><div class="verticalso_icon"><a target="_blank" href="http://finance.chinaso.com" class="caijing"></a></div><a target="_blank" href="http://finance.chinaso.com">财经</a></li>'+
-                                  '<li><div class="verticalso_icon"><a target="_blank" href="http://mil.chinaso.com" class="junshi"></a></div><a target="_blank" href="http://mil.chinaso.com">军事</a></li>'+
-                                  '<li><div class="verticalso_icon"><a target="_blank" href="http://sports.chinaso.com" class="tiyu"></a></div><a target="_blank" href="http://sports.chinaso.com">体育</a></li>'+
-                                  '<li><div class="verticalso_icon"><a target="_blank" href="http://ent.chinaso.com" class="yule"></a></div><a target="_blank" href="http://ent.chinaso.com">娱乐</a></li>'+
-                                  '<li><div class="verticalso_icon"><a target="_blank" href="http://tech.chinaso.com" class="lilun"></a></div><a target="_blank" href="http://tech.chinaso.com">科技</a></li>'+
-                                  '<li><div class="verticalso_icon"><a target="_blank" href="http://social.chinaso.com" class="sheke"></a></div><a target="_blank" href="http://social.chinaso.com">社科</a></li>'+
-                                  '<li><div class="verticalso_icon"><a target="_blank" href="http://law.chinaso.com" class="fagui"></a></div><a target="_blank" href="http://law.chinaso.com">法规</a></li>'+
-                                  '<li><div class="verticalso_icon"><a target="_blank" href="http://house.chinaso.com" class="fangchan"></a></div><a target="_blank" href="http://house.chinaso.com">房产</a></li>'+
-                                  '<li><div class="verticalso_icon"><a target="_blank" href="http://auto.chinaso.com" class="qiche"></a></div><a target="_blank" href="http://auto.chinaso.com">汽车</a></li>'+
-                                  '<li><div class="verticalso_icon"><a target="_blank" href="http://shopping.chinaso.com" class="gouwu"></a></div><a target="_blank" href="http://tuan.chinaso.com">团购</a></li>'+
-                                  '<li><div class="verticalso_icon"><a target="_blank" href="http://food.chinaso.com" class="yinshi"></a></div><a target="_blank" href="http://food.chinaso.com">食品</a></li>'+
-                                  '<li><div class="verticalso_icon"><a target="_blank" href="http://home.chinaso.com" class="jiaju"></a></div><a target="_blank" href="http://home.chinaso.com">家居</a></li>'+
-                                '</ul>'+
-                            '</div>'+
-                        '</span>';
-            }*/
             html += "</div>";
             document.writeln(html);
             var verticalClearTimeId;
-            
-            // 去掉jQuery依赖动画
-            // 使用setTimeout处理宽度高度变化动画效果
-            /*var navMore = document.getElementById("Id_nav_more"),
-                iconEle = document.getElementById("Id_news_icon_bg");
-            if (navMore) {
-                eventUtil.addHandler(navMore, "mouseover", function () {
-                    var setH = 470,
-                        setW = 375,
-                        step = 400,
-                        speed = 0.05;
-                    clearTimeout(verticalClearTimeId);
-                    verticalClearTimeId = setTimeout(function () {
-                        var aniObj = new animate(),
-                            stepWidth = iconEle.offsetWidth,
-                            stepHeight = iconEle.offsetHeight;
-                        iconEle.style.display = "block";
-                        aniObj.stop();
-                        aniObj.engine(function () {
-                            if (stepWidth >= setW) {
-                                stepWidth = setW;
-                                iconEle.style.width = stepWidth + "px";
-                                return !1;
-                            }
-                            stepWidth = stepWidth + setW / (step * speed);
-                            iconEle.style.width = stepWidth + "px";
-                            return !0;
-                        }, 0);
-                        aniObj.engine(function () {
-                            if (stepHeight >= setH) {
-                                stepHeight = setH;
-                                iconEle.style.height = stepHeight + "px";
-                                return !1;
-                            }
-                            stepHeight = stepHeight + setH / (step * speed);
-                            iconEle.style.height = stepHeight + "px";
-                            return !0;
-                        }, 0);
-                    }, 200);
-                });
-                eventUtil.addHandler(navMore, "mouseout", function () {
-                    var setH = 470,
-                        setW = 375,
-                        step = 200,
-                        speed = 0.05;
-                    clearTimeout(verticalClearTimeId);
-                    verticalClearTimeId = setTimeout(function () {
-                        var aniObj = new animate(),
-                            stepWidth = iconEle.offsetWidth,
-                            stepHeight = iconEle.offsetHeight;
-                        aniObj.stop();
-                        aniObj.engine(function () {
-                            if (stepWidth <= 0) {
-                                iconEle.style.width = stepWidth = "0px";
-                                iconEle.style.display = "none";
-                                return !1;
-                            }
-                            stepWidth = stepWidth - setW / (step * speed);
-                            iconEle.style.width = stepWidth + "px";
-                            return !0;
-                        }, 0);
-                        aniObj.engine(function () {
-                            if (stepHeight <= 0) {
-                                iconEle.style.height = stepHeight = "0px";
-                                return !1;
-                            }
-                            stepHeight = stepHeight - setH / (step * speed);
-                            iconEle.style.height = stepHeight + "px";
-                            return !0;
-                        }, 0);
-                    }, 200);
-                });
-            
-            };*/
-            
             var queues = [];
             var animate = function () {
             };
@@ -452,28 +376,6 @@
                 }, time);
                 queues.push({timeId: _this.timeId});
             };
-            
-//            $('.nav_more').mouseenter(function() {
-//                clearTimeout(verticalClearTimeId);
-//                verticalClearTimeId = setTimeout(function () {
-//                    $('.nav_more .news_icon_bg').show().stop().animate({
-//                        width: '375px',
-//                        height: '470px'
-//                    }, 400);
-//                }, 200);
-//            }).mouseleave(function() {
-//                clearTimeout(verticalClearTimeId);
-//                verticalClearTimeId = setTimeout(function () {
-//                    $('.nav_more .news_icon_bg').stop().animate({
-//                        width: '0px',
-//                        height: '0px'
-//                    }, 200);
-//                }, 200);
-//            });
-
-//            $('.nav_more .news_icon_bg a').on("click", function () {
-//                $(".nav_more .news_icon_bg").hide();
-//            });
         }
 
         setTimeout(function(){
@@ -482,14 +384,9 @@
                     _icoItems = CHANNELS["bannerNav"].items,
                     len = _icoItems.length,
                     bannerDiv = document.createElement("div"),
-                    //bannerUl = document.createElement("ul"),
                     innerHtml = '';
 
                 bannerDiv.className = "verticalSearch";
-               /* 前循环 for (var i = 0; i < len; i++) {
-                    var _cur = _icoItems[i];
-                   innerHtml += '<a href="'+_cur.itemLink+'" target="_blank" class="vSIco"><i class="'+_cur.itemCls+'"></i>'+_cur.itemText+'</a>'
-                };*/
                    innerHtml += '<ul class="listNewNav NavC">' +
                                      '<li><a target="_blank" href="http://news.chinaso.com/" class="fBlod">新闻</a></li>' +
                                      '<li><a target="_blank" href="http://local.chinaso.com/" class="fBlod">地方</a></li>' +
@@ -557,7 +454,6 @@
                                         '<li><a target="_blank" href="http://trip.chinaso.com/" class="fBlod">旅游</a></li>' +
                                         '<li><a target="_blank" href="http://icity.chinaso.com/" class="fBlod">智慧城市</a></li>' +
                                     '</ul>';
-                //bannerUl.innerHTML = innerHtml;
                 bannerDiv.innerHTML = innerHtml;
                 $(bannerDiv).insertBefore(bannerWrapper);
             };
@@ -565,9 +461,7 @@
     }
     
 
-    /**
-     * 判断是否需要添加通栏导航.(搜索结果页、地图暂不添加通栏导航.)
-     */
+    // 判断是否需要添加通栏导航.(搜索结果页、地图暂不添加通栏导航.)
     function hasBannerNav(){
         var exceptUrl = ['search/pagesearch',
                 'news.chinaso.com/search',
@@ -600,16 +494,12 @@
         return true;
     }
 
-    /**
-     * 获取元素样式
-     */
+    // 获取元素样式
     function getClassNames(element) {
         return element.className.replace(/\s+/, ' ').split(' ');
     };
 
-    /**
-     * 判断元素是否有该样式
-     */
+    // 判断元素是否有该样式
     function hasClassName(element, className) {
         var classes = getClassNames(element);
         for (var i = 0; i < classes.length; i++) {
@@ -620,17 +510,13 @@
         return false;
     };
 
-    /**
-     * 为元素添加样式
-     */
+    // 为元素添加样式
     function addClassName(element, className) {
         element.className += (element.className ? ' ' : '') + className;
         return true;
     };
 
-    /**
-     * 元素移除样式
-     */
+    // 元素移除样式
     function removeClassName(element, className) {
         var classes = getClassNames(element);
         var length = classes.length
@@ -643,9 +529,7 @@
         return (length == classes.length ? false : true);
     };
     
-    /**
-     * 获取当前URL
-     */
+    // 获取当前URL
     function getCurrentURL(){
          return window.location.href;
     };
@@ -678,6 +562,7 @@
    
     //设置默认频道为网页搜索
     var channel = DEFAULT_CHANNEL,
+        
     //设置默认的位置是结果页
     posStyle = POS_RESULT_STYLE,
     pgKeyword = "",
@@ -697,8 +582,6 @@
                 start = 0;
             }
             localChanl = curHost.substring(start,end);
-            //news.chinaso.com/info/
-            //if(localChanl == "news" && /\/info\//.test(curHost)) localChanl = "info";
             var curChanl = SITE_MAPPING[localChanl];
             if(curChanl){
                 if (curChanl === "www") {
@@ -719,6 +602,7 @@
              
      
     function setNav(){
+        
         //外部配置文件定义   
         if(typeof pgNavConf === 'object'&& pgNavConf){
             if('channel' in pgNavConf) {
@@ -736,7 +620,9 @@
                     pgKeyword = pgNavConf.kw;
                 }
             }
-        }else{//若未定义pgNavConf变量则从host里获得当前频道
+        }else{
+            
+            //若未定义pgNavConf变量则从host里获得当前频道
             if (getLocation() === "verticalSearch") {
                 channel = "www";
             };
@@ -770,22 +656,22 @@
         if(pgKeyword.length > 0){
             pgnav.updateTopNavLink(pgKeyword);
         }
+        
         //设置当前频道标红样式
-        //if(channelObj.useable === true){
-            if(channelObj) {
-                var chal = document.getElementById(channelObj.sid);
+        if(channelObj) {
+            var chal = document.getElementById(channelObj.sid);
+        }
+        if(!!chal){
+            addClassName(chal, CURRENT_CHANNEL_STYLE);
+            var chalText = chal.innerHTML || "";
+            if(chalText!=""){
+                
+                //去掉链接，改为文本  update lihao 14-06-11
+                var _text = chalText.replace(/\<\/(a|A)\>/, '');
+                _text = _text.replace(/\<(a|A).+\>/, '');
+                chal.innerHTML = _text;
             }
-            if(!!chal){
-                addClassName(chal, CURRENT_CHANNEL_STYLE);
-                var chalText = chal.innerHTML || "";
-                if(chalText!=""){
-                    //去掉链接，改为文本  update lihao 14-06-11
-                    var _text = chalText.replace(/\<\/(a|A)\>/, '');
-                    _text = _text.replace(/\<(a|A).+\>/, '');
-                    chal.innerHTML = _text;
-                }
-            }
-        //}
+        }
     }
 
     var eventUtil = {

@@ -88,6 +88,15 @@ define("assets/utils/util", function (fetch, exports, module) {
         },
         isArray: function(obj) {
             return Object.prototype.toString.call(obj) === '[object Array]';
+        },
+        isDate: function (obj) {
+            return Object.prototype.toString.call(obj) === "[object Date]";
+        },
+        isEmpty: function(str) {
+			return (str && /^\s*$/.test(str));
+		},
+        trim: function(str) {
+            return str.replace(/(^\s*)|(\s*$)/g, "");
         }
     };
 

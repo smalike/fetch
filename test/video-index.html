@@ -1138,9 +1138,9 @@ document.write('<a  href="' + curPro + "//" + curHost + '" class="logo"></a>');
         }
     };
     
+    fetch("assets/widget/ui/toolbar/com-toolbar/toolbar");
     fetch("assets/widget/ui/footer/footer");
     fetch("assets/widget/ui/vertical-toolbar/vertical-toolbar");
-//    fetch("assets/widget/ui/toolbar/toolbar", ["jquery"]);
 //    fetch("assets/widget/ui/common-search-nav/common-search-nav");
     
     ! function() {
@@ -1240,7 +1240,7 @@ document.write('<a  href="' + curPro + "//" + curHost + '" class="logo"></a>');
             }
         });
     });
-    fetch(["assets/widget/ui/lazyload/dom-lazyload"], function(domLazyload) {
+    fetch(["assets/widget/ui/lazyload/dom-lazyload"], ["assets/utils/event/publish"], function(domLazyload, Publish) {
         var dllex = domLazyload.build();
         dllex.publish = function ($cur) {
             Publish({attrs: $cur.data("bind")});
