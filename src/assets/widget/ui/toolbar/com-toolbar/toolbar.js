@@ -1,4 +1,4 @@
-define("assets/widget/ui/toolbar/com-toolbar/toolbar", ["assets/widget/com/jsonp", "assets/utils/cookie", "assets/utils/util", "assets/utils/event/event", "assets/utils/date/time", "assets/widget/ui/toolbar/com-toolbar/weather", "assets/utils/date/lunar-calendar"], function (require, exports, module) {
+define("assets/widget/ui/toolbar/com-toolbar/toolbar", ["assets/widget/com/jsonp", "assets/utils/cookie", "assets/utils/util", "assets/utils/event/event", "assets/utils/date/time", "assets/widget/ui/toolbar/com-toolbar/weather", "assets/utils/date/lunar-calendar", "assets/widget/ui/easter/easter", "jquery"], function (require, exports, module) {
     
     "use strict";
     
@@ -8,7 +8,9 @@ define("assets/widget/ui/toolbar/com-toolbar/toolbar", ["assets/widget/com/jsonp
         Event = require("assets/utils/event/event"),
         Time = require("assets/utils/date/time"),
         Weather = require("assets/widget/ui/toolbar/com-toolbar/weather")(),
-        LunarCalendar = require("assets/utils/date/lunar-calendar")();
+        Easter = require("assets/widget/ui/easter/easter"),
+        LunarCalendar = require("assets/utils/date/lunar-calendar")(),
+        $ = require("jquery");
     
     function Toolbar(setting) {
         var T = this;
@@ -49,6 +51,7 @@ define("assets/widget/ui/toolbar/com-toolbar/toolbar", ["assets/widget/com/jsonp
         };
 
         Util.extend(T.defaults, setting);
+        Easter.log();
     }
     
     Util.extend(Toolbar.prototype, {
@@ -77,7 +80,7 @@ define("assets/widget/ui/toolbar/com-toolbar/toolbar", ["assets/widget/com/jsonp
                 weatherother,
                 downloadA,
                 downloadDiv;
-            weatherother = '<div class="weather_other">' + '<i id="wo_switch">其它城市天气</i>' + '<div class="wo_box hide">' + '<div class="wo_box_wrap">' + '<div class="wo_search">' + '<ul class="list17" id="wo_city_list">' + '<li class="last" id="wo_last_input"><select class="input3" id="id_searchCity" placeholder="输入城市全拼/简拼"></select></li>' + '</ul>' + '<div class="clear"></div>' + '</div>' + '<div class="wo_tab"><a href="#" class="cur">热门城市</a><a href="#">省市</a></div>' + '<div class="wo_cont_box">' + '<div class="wo_cont">' + '<div class="h6"></div>' + '<ul class="list15" id="hotCity">' + '</ul>' + '<div class="h6 clear"></div>' + '</div>' + '<div class="wo_cont hide">' + '<div class="wo_sel_box">' + '<select multiple="multiple" name="s_province" id="s_province">' + '</select>' + '</div>' + '<div class="wo_sel_box">' + '<select multiple="multiple" id="s_city" name="s_city">' + '</select>' + '</div>' + '<div class="clear"></div>' + '</div>' + '</div>' + '<div class="wo_submit"><p><input type="button" class="btn3 mgr5" id="weatherSubmit" value="保存" /><input type="button" class="btn4" id="cancelSel" value="取消" /></p><span>您最多可同时选择3个城市</span></div>' + '</div>' + '<div class="wo_box_wrap hide">' + '<div class="wo_detail_box">' + '<ul class="list16">' + '<li class="wo_color1"><h1></h1><h2></h2><h3></h3><h4></h4></li>' + '<li class="wo_color2"><h1></h1><h2></h2><h3></h3><h4></h4></li>' + '<li class="wo_color3 last"><h1></h1><h2></h2><h3></h3><h4></h4></li>' + '</ul>' + '<ul class="list16 hide">' + '<li class="wo_color1"><h1></h1><h2></h2><h3></h3><h4></h4></li>' + '<li class="wo_color2"><h1></h1><h2></h2><h3></h3><h4></h4></li>' + '<li class="wo_color3 last"><h1></h1><h2></h2><h3></h3><h4></h4></li>' + '</ul>' + '<ul class="list16 hide">' + '<li class="wo_color1"><h1></h1><h2></h2><h3></h3><h4></h4></li>' + '<li class="wo_color2"><h1></h1><h2></h2><h3></h3><h4></h4></li>' + '<li class="wo_color3 last"><h1></h1><h2></h2><h3></h3><h4></h4></li>' + '</ul>' + '</div>' + '<div class="wo_detail_text"><p id="wo_sel_day"><a href="#" class="cur">今天</a><i>|</i><a href="#">明天</a><i>|</i><a href="#">后天</a></p><strong id="resetCity">重新设定</strong></div>' + '</div>' + '</div>' + '</div>';
+            weatherother = '<div class="weather_other">' + '<div class="wo_box hide">' + '<div class="wo_box_wrap">' + '<div class="wo_search">' + '<ul class="list17" id="wo_city_list">' + '<li class="last" id="wo_last_input"><select class="input3" id="id_searchCity" placeholder="输入城市全拼/简拼"></select></li>' + '</ul>' + '<div class="clear"></div>' + '</div>' + '<div class="wo_tab"><a href="#" class="cur">热门城市</a><a href="#">省市</a></div>' + '<div class="wo_cont_box">' + '<div class="wo_cont">' + '<div class="h6"></div>' + '<ul class="list15" id="hotCity">' + '</ul>' + '<div class="h6 clear"></div>' + '</div>' + '<div class="wo_cont hide">' + '<div class="wo_sel_box">' + '<select multiple="multiple" name="s_province" id="s_province">' + '</select>' + '</div>' + '<div class="wo_sel_box">' + '<select multiple="multiple" id="s_city" name="s_city">' + '</select>' + '</div>' + '<div class="clear"></div>' + '</div>' + '</div>' + '<div class="wo_submit"><p><input type="button" class="btn3 mgr5" id="weatherSubmit" value="保存" /><input type="button" class="btn4" id="cancelSel" value="取消" /></p><span>您最多可同时选择3个城市</span></div>' + '</div>' + '<div class="wo_box_wrap hide">' + '<div class="wo_detail_box">' + '<ul class="list16">' + '<li class="wo_color1"><h1></h1><h2></h2><h3></h3><h4></h4></li>' + '<li class="wo_color2"><h1></h1><h2></h2><h3></h3><h4></h4></li>' + '<li class="wo_color3 last"><h1></h1><h2></h2><h3></h3><h4></h4></li>' + '</ul>' + '<ul class="list16 hide">' + '<li class="wo_color1"><h1></h1><h2></h2><h3></h3><h4></h4></li>' + '<li class="wo_color2"><h1></h1><h2></h2><h3></h3><h4></h4></li>' + '<li class="wo_color3 last"><h1></h1><h2></h2><h3></h3><h4></h4></li>' + '</ul>' + '<ul class="list16 hide">' + '<li class="wo_color1"><h1></h1><h2></h2><h3></h3><h4></h4></li>' + '<li class="wo_color2"><h1></h1><h2></h2><h3></h3><h4></h4></li>' + '<li class="wo_color3 last"><h1></h1><h2></h2><h3></h3><h4></h4></li>' + '</ul>' + '</div>' + '<div class="wo_detail_text"><p id="wo_sel_day"><a href="#" class="cur">今天</a><i>|</i><a href="#">明天</a><i>|</i><a href="#">后天</a></p><strong id="resetCity">重新设定</strong></div>' + '</div>' + '</div>' + '</div>';
             downloadA = '<a href="http://m.chinaso.com/wsdownload.html" class="a_download" target="_blank">移动客户端</a>';
             var downloadA2 = '<a href="http://m.chinaso.com/wsdownload.html" class="a_download" target="_blank">移动客户端</a>';
             var versionSel = '<a href="javascript:void(0)" class="a_version">版本选择<i class="arrow_down"></i></a>';
@@ -276,32 +279,49 @@ define("assets/widget/ui/toolbar/com-toolbar/toolbar", ["assets/widget/com/jsonp
             }
             return w;
         },
-        bindExitEvent: function () {
-            var T = this;
-//            $('#jToolbarExit').on('click', function () {
-//                $(this).PassportLogoutWhy({
-//                    'basePath': T.defaults.CONF.VSTAR_PATH,
-//                    'passurl': T.defaults.CONF.URL_EXIT + 'logout/doLogout.htm',
-//                    'curUrl': encodeURIComponent(window.location.href)
-//                }, {
-//                    sucCb: function () {
-//                        if (/^.*my.chinaso.com.*$/ig.test(location.host)) {
-//                            window.location.href = T.defaults.CONF.URL_UNAME;
-//                        }
-//                        BL.Com.Toolbar.update();
-//                    },
-//                    errorCb: function () {
-//                        BL.Com.Toolbar.update();
-//                    }
-//                });
-////                City.loadindex = 1;
-//                return false;
-//            });
-        },
+		initBaseEvent: function() {
+			var T = this;
+
+			$('.a_user').on('mouseover', function() {
+                
+				// 每次修改头部结构都要重新定义退出right值。
+				// 这里用依靠定义法，获得依靠目标left值，定义给quit位置 - jlj
+				$('.quit_box').css({
+					left: this.offsetLeft
+				}).show();
+				return false;
+			});
+            
+			// 移入空白处
+			$(document).on('mouseover', function(e) {
+				if ($(e.target).closest(".quit_box").length === 0) {
+					$(".quit_box").hide();
+				}
+			});
+            $('#jToolbarExit').on('click', function () {
+                $(this).PassportLogoutWhy({
+                    'basePath': T.defaults.CONF.VSTAR_PATH,
+                    'passurl': T.defaults.CONF.URL_EXIT + 'logout/doLogout.htm',
+                    'curUrl': encodeURIComponent(window.location.href)
+                }, {
+                    sucCb: function () {
+                        if (/^.*my.chinaso.com.*$/ig.test(location.host)) {
+                            window.location.href = T.defaults.CONF.URL_UNAME;
+                        }
+                        T.updateUserState();
+                    },
+                    errorCb: function () {
+                        T.updateUserState();
+                    }
+                });
+//                City.loadindex = 1;
+                return false;
+            });
+		},
         init: function () {
             var T = this;
             T.render();
-            T.bindExitEvent();
+            T.initBaseEvent();
             return this;
         }
     });
@@ -316,15 +336,6 @@ define("assets/widget/ui/toolbar/com-toolbar/toolbar", ["assets/widget/com/jsonp
         }
         t.init();
         return t;
-//        return {
-//            init: t.init,
-//            update: t.updateUserState,
-//            conf: t.CONF,
-//            updateWheatherState: t.updateWheatherState,
-//            formatWeatherData: t.formatWeatherData,
-//            getWheather: t.getWheather,
-//            isLogin: t.isLogin
-//        }
 //    };
     
 });
