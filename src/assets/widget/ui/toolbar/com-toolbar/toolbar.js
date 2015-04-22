@@ -1,4 +1,4 @@
-define("assets/widget/ui/toolbar/com-toolbar/toolbar", ["assets/widget/com/jsonp", "assets/utils/cookie", "assets/utils/util", "assets/utils/event/event", "assets/utils/date/time", "assets/widget/ui/toolbar/com-toolbar/weather", "assets/utils/date/lunar-calendar", "assets/widget/ui/easter/easter", "jquery"], function (require, exports, module) {
+define("assets/widget/ui/toolbar/com-toolbar/toolbar", ["assets/widget/com/jsonp", "assets/utils/cookie", "assets/utils/util", "assets/utils/event/event", "assets/utils/date/time", "assets/widget/ui/toolbar/com-toolbar/weather", "assets/utils/date/lunar-calendar", "assets/widget/ui/easter/easter", "jquery", "assets/widget/ui/passport/passport", "assets/widget/ui/set-home/set-home"], function (require, exports, module) {
     
     "use strict";
     
@@ -10,6 +10,8 @@ define("assets/widget/ui/toolbar/com-toolbar/toolbar", ["assets/widget/com/jsonp
         Weather = require("assets/widget/ui/toolbar/com-toolbar/weather")(),
         Easter = require("assets/widget/ui/easter/easter"),
         LunarCalendar = require("assets/utils/date/lunar-calendar")(),
+        Passport = require("assets/widget/ui/passport/passport"),
+        SetHome = require("assets/widget/ui/set-home/set-home"),
         $ = require("jquery");
     
     function Toolbar(setting) {
@@ -96,7 +98,7 @@ define("assets/widget/ui/toolbar/com-toolbar/toolbar", ["assets/widget/com/jsonp
                         '<b class="head_pic"></b><a href="javascript:void(0)" class="a_user">' + uname +
                         '<i class="arrow_down"></i></a>' +
                         downloadA2 + '<span>|</span><a target="_blank" id="jToolbarHomepage" href="http://www.chinaso.com" ' +
-                        'onclick="setHome(this, \'http:\/\/www.chinaso.com\');">设国搜为主页</a>' + '</div>' +
+                        >设国搜为主页</a>' + '</div>' +
                         '<div class="quit_box hide"><ul class="list51"><li><a target="_blank" href="http://wenda.chinaso.com/user/score.html">我的问答</a></li>' +
                         '<li><a target="_blank" href="http://forum.chinaso.com/home.php?mod=spacecp&ac=profile">我的论吧</a></li>' +
                         '<li><a target="_blank" href="http://baike.chinaso.com/wiki/user-doccontri-create.html">我的百科</a></li>' +
@@ -110,7 +112,8 @@ define("assets/widget/ui/toolbar/com-toolbar/toolbar", ["assets/widget/com/jsonp
                     var loginUrl = T.defaults.CONF.URL_LOGIN + "login.jsp?url=http://my.chinaso.com/ts.htm?u=" + encodeURIComponent(encodeURIComponent(encodeURIComponent(redirect)));
                     var registerUrl = T.defaults.CONF.URL_LOGIN + "login.jsp?url=http://my.chinaso.com/ts.htm?u=" + encodeURIComponent(encodeURIComponent(encodeURIComponent(redirect))) + "#register";
                     html = '<div id="jToolbarUser" class="account">' + '<div class="skinOpen">' + '<a id="jToolbarLogin" href="' + loginUrl + '" class="a_login">登录</a><a id="jToolbarReg" href="' + registerUrl + '">注册</a><span>|</span>' +
-                        downloadA2 + '<span>|</span><a target="_blank" id="jToolbarHomepage" href="http://www.chinaso.com"' + '  onclick="setHome(this, \'http:\/\/www.chinaso.com\');">设国搜为主页</a>' + '</div>' + 
+                        downloadA2 + '<span>|</span><a target="_blank" id="jToolbarHomepage" href="http://www.chinaso.com"' + 
+                        '>设国搜为主页</a>' + '</div>' + 
                         '</div>' + 
                         '<div class="fl top_data">' + '<span id="jToolbarTime">' + T.setTimeArea() + '</span><a href="http://www.chinaso.com/search/pagesearch.htm?q=%E5%86%9C%E5%8E%86" target="_blank" class="date_lunar">' + T.getCurCNDDate() + '</a><i>|</i><span id="jToolbarWeather"></span>' + '</div>' + weatherother;
                 }
@@ -122,7 +125,8 @@ define("assets/widget/ui/toolbar/com-toolbar/toolbar", ["assets/widget/com/jsonp
                 if (T.isLogin()) {
                     uname = Cookie.get(T.defaults.CONST.COOKIE_USER_NAME, true) || "";
                     html = '<div id="jToolbarUser" class="account">' + '<div class="skinOpen">' + '<b class="head_pic"></b><a href="javascript:void(0)" class="a_user">' + uname + '<i class="arrow_down"></i></a>' +
-                        downloadA + '<span>|</span><a target="_blank" id="jToolbarHomepage" href="http://www.chinaso.com"' + ' onclick="setHome(this, \'http:\/\/www.chinaso.com\');">设国搜为主页</a>' + '</div>' + 
+                        downloadA + '<span>|</span><a target="_blank" id="jToolbarHomepage" href="http://www.chinaso.com"' + 
+                        '>设国搜为主页</a>' + '</div>' + 
                         '<div class="quit_box hide noindex_pos">' + '<ul class="list51">' +
                         '<li><a target="_blank" href="http://wenda.chinaso.com/user/score.html">我的问答</a></li>' +
                         '<li><a target="_blank" href="http://forum.chinaso.com/home.php?mod=spacecp&ac=profile">我的论吧</a></li>' +
@@ -138,7 +142,8 @@ define("assets/widget/ui/toolbar/com-toolbar/toolbar", ["assets/widget/com/jsonp
                     var loginUrl = T.defaults.CONF.URL_LOGIN + "login.jsp?url=http://my.chinaso.com/ts.htm?u=" + encodeURIComponent(encodeURIComponent(encodeURIComponent(redirect)));
                     var registerUrl = T.defaults.CONF.URL_LOGIN + "login.jsp?url=http://my.chinaso.com/ts.htm?u=" + encodeURIComponent(encodeURIComponent(encodeURIComponent(redirect))) + "#register";
                     html = '<div id="jToolbarUser" class="account">' + '<div class="skinOpen">' + '<a id="jToolbarLogin" href="' + loginUrl + '" class="a_login">登录</a><a id="jToolbarReg" href="' + registerUrl + '">注册</a><span>|</span>' +
-                        downloadA + '<span>|</span><a target="_blank" id="jToolbarHomepage" href="http://www.chinaso.com"' + ' onclick="setHome(this, \'http:\/\/www.chinaso.com\');">设国搜为主页</a></div>' + 
+                        downloadA + '<span>|</span><a target="_blank" id="jToolbarHomepage" href="http://www.chinaso.com"' + 
+                        '>设国搜为主页</a></div>' + 
                         '</div>' + '<div class="fl top_data">';
                     html += '<span id="jToolbarTime">' + T.setTimeArea() + '</span><a target="_blank" href="http://www.chinaso.com/search/pagesearch.htm?q=%E5%86%9C%E5%8E%86" class="date_lunar">' +
                         T.getCurCNDDate() + '</a><i>|</i><span id="jToolbarWeather"></span>'
@@ -281,6 +286,12 @@ define("assets/widget/ui/toolbar/com-toolbar/toolbar", ["assets/widget/com/jsonp
         },
 		initBaseEvent: function() {
 			var T = this;
+            
+            // 设为首页
+            $("#jToolbarHomepage").on("click", function () {
+                SetHome.setHome(this, "http://www.chinaso.com");
+                return !1;
+            });
 
 			$('.a_user').on('mouseover', function() {
                 
@@ -299,11 +310,10 @@ define("assets/widget/ui/toolbar/com-toolbar/toolbar", ["assets/widget/com/jsonp
 				}
 			});
             $('#jToolbarExit').on('click', function () {
-                $(this).PassportLogoutWhy({
+                Passport({
                     'basePath': T.defaults.CONF.VSTAR_PATH,
                     'passurl': T.defaults.CONF.URL_EXIT + 'logout/doLogout.htm',
-                    'curUrl': encodeURIComponent(window.location.href)
-                }, {
+                    'curUrl': encodeURIComponent(window.location.href),
                     sucCb: function () {
                         if (/^.*my.chinaso.com.*$/ig.test(location.host)) {
                             window.location.href = T.defaults.CONF.URL_UNAME;
@@ -313,8 +323,7 @@ define("assets/widget/ui/toolbar/com-toolbar/toolbar", ["assets/widget/com/jsonp
                     errorCb: function () {
                         T.updateUserState();
                     }
-                });
-//                City.loadindex = 1;
+                }).passportLogout();
                 return false;
             });
 		},

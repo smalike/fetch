@@ -1,6 +1,9 @@
 // 设为主页
-define("", function (require, exports, module) {
-    function setHome(obj, vrl) {
+define("assets/widget/ui/set-home/set-home", function (require, exports, module) {
+    
+    "use strict";
+    
+    function SetHome(obj, vrl) {
         try {
             obj.style.behavior = 'url(#default#homepage)';
             obj.setHomePage(vrl);
@@ -20,4 +23,6 @@ define("", function (require, exports, module) {
             }
         }
     }
+    
+    return SetHome();
 });
