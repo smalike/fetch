@@ -46,9 +46,26 @@ module.exports = function (grunt) {
             },
             base: {
                 files: [{
-                        "assets/base/base.js": [
-                            "src/assets/base/**/*.js",
-                            "src/assets/utils/**/*.js"
+                        "assets/base/fetch.js": [
+                            "src/assets/base/**/*.js"
+                        ]
+                }]
+            },
+            util: {
+                files: [{
+                        "assets/utils/util.js": [
+                            "src/assets/utils/class.js",
+                            "src/assets/utils/util.js",
+                            "src/assets/utils/event/event.js",
+                            "src/assets/utils/event/dispatcher.js",
+                            "src/assets/utils/event/publish.js",
+                            "src/assets/utils/event/subscriber.js",
+                            "src/assets/utils/json2.js",
+                            "src/assets/utils/storage.js",
+                            "src/assets/utils/cookie.js",
+                            "src/assets/utils/date/time.js",
+                            "src/assets/utils/date/lunar-calendar.js",
+                            "src/assets/utils/console.js"
                         ]
                 }]
             },
@@ -82,9 +99,26 @@ module.exports = function (grunt) {
             },
             base: {
                 files: [{
-                        "assets/base/base.js": [
-                            "src/assets/base/**/*.js",
-                            "src/assets/utils/**/*.js"
+                        "assets/base/fetch.js": [
+                            "src/assets/base/**/*.js"
+                        ]
+                }]
+            },
+            util: {
+                files: [{
+                        "assets/utils/util.js": [
+                            "src/assets/utils/class.js",
+                            "src/assets/utils/util.js",
+                            "src/assets/utils/event/event.js",
+                            "src/assets/utils/event/dispatcher.js",
+                            "src/assets/utils/event/publish.js",
+                            "src/assets/utils/event/subscriber.js",
+                            "src/assets/utils/json2.js",
+                            "src/assets/utils/storage.js",
+                            "src/assets/utils/cookie.js",
+                            "src/assets/utils/date/time.js",
+                            "src/assets/utils/date/lunar-calendar.js",
+                            "src/assets/utils/console.js"
                         ]
                 }]
             },
@@ -127,6 +161,9 @@ module.exports = function (grunt) {
     
     grunt.registerTask("cBase", ["concat:base"]);
     grunt.registerTask("uBase", ["uglify:base"]);
+    
+    grunt.registerTask("cUtil", ["concat:util"]);
+    grunt.registerTask("uUtil", ["uglify:util"]);
     
     grunt.registerTask("cWidget", ["concat:widget"]);
     grunt.registerTask("uWidget", ["uglify:widget"]);

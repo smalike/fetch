@@ -1,4 +1,7 @@
 define("assets/utils/event/dispatcher", function (require, exports, module) {
+    
+    "use strict";
+    
 	function Dispatcher () {
 		this.listeners = {};
 	}

@@ -1,4 +1,10 @@
 define("assets/utils/event/subscriber", ["assets/utils/util", "assets/utils/event/dispatcher"], function (fetch, exports, module) {
+    
+    "use strict";
+    
+	var Util = fetch("assets/utils/util"),
+        Dispatcher = fetch("assets/utils/event/dispatcher");
+    
 	function Subscriber (setting) {
 		var arrs = setting.attrs.split(";"),
 			i,
@@ -7,9 +13,6 @@ define("assets/utils/event/subscriber", ["assets/utils/util", "assets/utils/even
 			Dispatcher.eventCenter.addEventListener(keymap.type, setting.fn, setting.owner, setting.args);
 		}
 	}
-    
-	var Util = fetch("assets/utils/util"),
-        Dispatcher = fetch("assets/utils/event/dispatcher");
     
 	Util.extend(Subscriber.prototype, {
 		invert: function (arrs) {
