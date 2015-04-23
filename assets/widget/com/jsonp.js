@@ -1,0 +1,2 @@
+/*! fetch-Module - v0.1.0 - 2015-04-23 12:23:41 */
+define("assets/widget/com/jsonp",function(a,b,c){function d(a,b){var c=document.createElement("script"),d=document.getElementsByTagName("script")[0];c.type="text/javascript",c.src=b?a+(-1==a.indexOf("?")?"?":"&")+"jsonpcallback="+b:a,d.parentNode.insertBefore(c,d)}return d});

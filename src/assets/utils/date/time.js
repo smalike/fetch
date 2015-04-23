@@ -28,12 +28,11 @@ define("assets/utils/date/time", ["assets/utils/util"], function (require, expor
             return param < 10 ? "0" + param : param;
         },
         
-        /**
-         * 显示绝对时间
-         * @param  {Date} original 原始时间
-         * @param  {Date} curDate  当前时间
-         * @return {String}          转换后日期
-         */
+         // 显示绝对时间
+         // @param  {Date} original 原始时间
+         // @param  {Date} curDate  当前时间
+         // @return {String}          转换后日期
+         //
         doTransferAbso: function(original, curDate) {
             var t = this,
                 resultStr,

@@ -1,0 +1,2 @@
+/*! fetch-Module - v0.1.0 - 2015-04-23 12:23:41 */
+define("assets/widget/ui/cur-convert/cur-convert",["jquery"],function(a,b,c){"use strict";function d(a){var b=this;this.defaults={},this.defaults=e.extend(this.defaults,a),e(this.defaults.container).on(this.defaults.event,this.defaults.item+":not("+this.defaults.filter+")",function(){e(this).addClass(b.defaults.cur).siblings().removeClass(b.defaults.cur)})}var e=a("jquery");c.exports={build:function(a){var b;return b=new d(a)}}});

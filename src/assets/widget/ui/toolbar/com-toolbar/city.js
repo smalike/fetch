@@ -11,6 +11,6 @@ define("", ["assets/widget/com/jsonp"], function (require, exports, module) {
         // 获得当前城市
         getCurrentCity: function () {
             JSONP('http://www.chinaso.com/weather/query/updateWheatherState?' + Math.random() * 1000000 + (new Date()).toTimeString());
-        };
+        }
     }
 });

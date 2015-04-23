@@ -1,13 +1,2 @@
-define("common:chinaso/page/common/ie.version", function () {
-	function ieVersion() {
-        var v = 3,
-            div = document.createElement('div'),
-            all = div.getElementsByTagName('i');
-        while (
-            div.innerHTML = '<!--[if gt IE ' + (++v) + ']><i></i><![endif]-->',
-            all[0]
-        );
-        return v > 4 ? v : 0;
-    }
-    return ieVersion();
-});
+/*! fetch-Module - v0.1.0 - 2015-04-23 12:23:41 */
+define("common:chinaso/page/common/ie.version",function(){function a(){for(var a=3,b=document.createElement("div"),c=b.getElementsByTagName("i");b.innerHTML="<!--[if gt IE "+ ++a+"]><i></i><![endif]-->",c[0];);return a>4?a:0}return a()});
