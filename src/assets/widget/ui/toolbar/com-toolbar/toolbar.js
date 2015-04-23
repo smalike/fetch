@@ -98,7 +98,7 @@ define("assets/widget/ui/toolbar/com-toolbar/toolbar", ["assets/widget/com/jsonp
                         '<b class="head_pic"></b><a href="javascript:void(0)" class="a_user">' + uname +
                         '<i class="arrow_down"></i></a>' +
                         downloadA2 + '<span>|</span><a target="_blank" id="jToolbarHomepage" href="http://www.chinaso.com" ' +
-                        >设国搜为主页</a>' + '</div>' +
+                        '>设国搜为主页</a>' + '</div>' +
                         '<div class="quit_box hide"><ul class="list51"><li><a target="_blank" href="http://wenda.chinaso.com/user/score.html">我的问答</a></li>' +
                         '<li><a target="_blank" href="http://forum.chinaso.com/home.php?mod=spacecp&ac=profile">我的论吧</a></li>' +
                         '<li><a target="_blank" href="http://baike.chinaso.com/wiki/user-doccontri-create.html">我的百科</a></li>' +
@@ -289,8 +289,7 @@ define("assets/widget/ui/toolbar/com-toolbar/toolbar", ["assets/widget/com/jsonp
             
             // 设为首页
             $("#jToolbarHomepage").on("click", function () {
-                SetHome.setHome(this, "http://www.chinaso.com");
-                return !1;
+                SetHome(this, "http://www.chinaso.com");
             });
 
 			$('.a_user').on('mouseover', function() {

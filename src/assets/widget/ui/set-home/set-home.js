@@ -24,5 +24,5 @@ define("assets/widget/ui/set-home/set-home", function (require, exports, module)
         }
     }
     
-    return SetHome();
+    return SetHome;
 });
