@@ -113,34 +113,48 @@ var fetch,
         var script = document.createElement("script"),
             timeoutClearId,
             deferred,
-            path;
+            path,
+            insertBeforeEl = head && head.getElementsByTagName('base')[0] || head.firstChild;
         deferred = new Deferred();
         timeoutClearId = setTimeout(function () {
             timeoutError(deferred, "timeout");
         }, fetch.timeout);
         script.onerror = function (e) {
+            clearTimeout(timeoutClearId);
             timeoutError(deferred, e);
         };
-        script.onload = script.onreadystatechange = function () {
-            if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete") {
+        script.onload = script.onreadystatechange = function (ev) {
+            ev = ev || window.event;
+            if (ev.type === 'load' || {'loaded': 1, 'complete': 1}[this.readyState]) {
                 clearTimeout(timeoutClearId);
                 deferred.resolve(name);
             }
-            script.onload = script.onreadystatechange = null;
+//            if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete") {
+//                clearTimeout(timeoutClearId);
+//                deferred.resolve(name);
+//            }
+            script.onload = script.onreadystatechange = script.onerror = null;
         };
 //        fetch.config.paths = fetch.config.paths || {};
 //        path = fetch.config.paths[name];
         if (fetch.config.paths && (path = fetch.config.paths[name])) {
             name = path;
         }
+        
+        // 已 http:// | https:// | // 开始的 URL 不处理 baseURL 路径
         if (!/^(http(s)?:)?\/\//i.test(name)) {
+            
+            // 当 debug 模式开启时，添加 debug 目录
             if (fetch.config.debug) {
                 name = "src/" + name;
             }
             name = (fetch.config.baseURL || "") + name;
         }
-        script.src = name + ".js";
-        head.insertBefore(script, head.firstChild);
+        script.charset = "utf-8";
+        script.async = !0;
+        script.src = name + ".js" + "?t=" + fetch.config.version;
+        
+        head.insertBefore(script, insertBeforeEl);
         return deferred;
     }
     
@@ -225,7 +239,7 @@ var fetch,
         
         // 页面head元素
         // 用来添加javascript标签
-        head = document.getElementsByTagName("head")[0];
+        head = document && (document['head'] || document.getElementsByTagName('head')[0]);
     
     // 设置缓存加载完成的模块定义
     function settingCache(name, depyObj, callback) {
@@ -438,7 +452,8 @@ var fetch,
     // 请求配置属性
     fetch.config = {
         debug: !0,
-        paths: {}
+        paths: {},
+        version: "1"
     };
     
     // 符合AMD模式
