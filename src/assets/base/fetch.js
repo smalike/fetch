@@ -148,6 +148,8 @@ var fetch,
             if (fetch.config.debug) {
                 name = "src/" + name;
             }
+            
+            // 在 srcipr src 上追加 baseURL 地址
             name = (fetch.config.baseURL || "") + name;
         }
         script.charset = "utf-8";
