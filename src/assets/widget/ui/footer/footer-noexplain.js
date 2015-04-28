@@ -28,4 +28,4 @@ define("assets/widget/ui/footer/footer", ["jquery"], function (require, exports,
 				'</div>';
 	
     document.getElementsByTagName("body")[0].appendChild(_footerHtmlContainer);
-})()
+});

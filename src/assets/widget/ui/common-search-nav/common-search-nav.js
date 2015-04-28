@@ -377,87 +377,87 @@
                 queues.push({timeId: _this.timeId});
             };
         }
-
-        setTimeout(function(){
-            if (isShowBanner) {
-                var bannerWrapper = $(".head"),
-                    _icoItems = CHANNELS["bannerNav"].items,
-                    len = _icoItems.length,
-                    bannerDiv = document.createElement("div"),
-                    innerHtml = '';
-
-                bannerDiv.className = "verticalSearch";
-                   innerHtml += '<ul class="listNewNav NavC">' +
-                                     '<li><a target="_blank" href="http://news.chinaso.com/" class="fBlod">新闻</a></li>' +
-                                     '<li><a target="_blank" href="http://local.chinaso.com/" class="fBlod">地方</a></li>' +
-                                     '<li><a target="_blank" href="http://news.chinaso.com/newscommon/jsxw/index.html">即时</a></li>' +
-                                     '<li><a target="_blank" href="http://politics.chinaso.com/" class="fBlod">时政</a></li>' +
-                                     '<li><a target="_blank" href="http://nation.chinaso.com/" class="fBlod">国情</a></li>' +
-                                     '<li><a target="_blank" href="http://social.chinaso.com/">社科</a></li>' +
-                                  '</ul>'+
-                                  '<span class="newNavLine"></span>' +
-                                   '<ul class="listNewNav NavB">' +
-                                        '<li><a target="_blank" href="http://world.chinaso.com/" class="fBlod">国际</a></li>' +
-                                        '<li><a target="_blank" href="http://world.chinaso.com/wmjj/index.html">外媒</a></li>' +
-                                        '<li><a target="_blank" href="http://sports.chinaso.com/" class="fBlod">体育</a></li>' +
-                                        '<li><a target="_blank" href="http://sports.chinaso.com/tycpnews/index.html">彩票</a></li>' +
-                                    '</ul>' +
-                                    '<span class="newNavLine"></span>' +
-                                    '<ul class="listNewNav NavB">' +
-                                        '<li><a target="_blank" href="http://mil.chinaso.com/" class="fBlod">军事</a></li>' +
-                                        '<li><a target="_blank" href="http://mil.chinaso.com/jmry/index.html">军迷</a></li>' +
-                                        '<li><a target="_blank" href="http://finance.chinaso.com/" class="fBlod">财经</a></li>' +
-                                        '<li><a target="_blank" href="http://finance.chinaso.com/jrsc/index.html">金融</a></li>' +
-                                    '</ul>' +
-                                    '<span class="newNavLine"></span>' +
-                                    '<ul class="listNewNav NavB">' +
-                                        '<li><a target="_blank" href="http://paper.chinaso.com/" class="fBlod">报刊</a></li>' +
-                                        '<li><a target="_blank" href="http://paper.chinaso.com/minshengrexian/index.html">民生</a></li>' +
-                                        '<li><a target="_blank" href="http://society.chinaso.com/" class="fBlod">社会</a></li>' +
-                                        '<li><a target="_blank" href="http://society.chinaso.com/shgc/index.html">观察</a></li>' +
-                                    '</ul>' +
-                                    '<span class="newNavLine"></span>' +
-                                    '<ul class="listNewNav NavB">' +
-                                        '<li><a target="_blank" href="http://law.chinaso.com/" class="fBlod">法治</a></li>' +
-                                        '<li><a target="_blank" href="http://law.chinaso.com/flfg/index.html">法规</a></li>' +
-                                        '<li><a target="_blank" href="http://ent.chinaso.com/" class="fBlod">娱乐</a></li>' +
-                                        '<li><a target="_blank" href="http://ent.chinaso.com/mingxing.html">星闻</a></li>' +
-                                    '</ul>' +
-                                    '<span class="newNavLine"></span>' +
-                                    '<ul class="listNewNav NavB">' +
-                                        '<li><a target="_blank" href="http://house.chinaso.com/beijing.html" class="fBlod">房产</a></li>' +
-                                        '<li><a target="_blank" href="http://house.chinaso.com/searchBuilding/beijing?infotype=1&amp;n=10&amp;p=0&amp;buildingState=all&amp;orderBy=default">楼盘</a></li>' +
-                                        '<li><a target="_blank" href="http://auto.chinaso.com/" class="fBlod">汽车</a></li>' +
-                                        '<li><a target="_blank" href="http://auto.chinaso.com/daogou/shjpc.html">评测</a></li>' +
-                                    '</ul>' +
-                                    '<span class="newNavLine"></span>' +
-                                    '<ul class="listNewNav NavB">' +
-                                        '<li><a target="_blank" href="http://food.chinaso.com/" class="fBlod">食品</a></li>' +
-                                        '<li><a target="_blank" href="http://food.chinaso.com/msfs/index.html">美食</a></li>' +
-                                        '<li><a target="_blank" href="http://home.chinaso.com/" class="fBlod">家居</a></li>' +
-                                        '<li><a target="_blank" href="http://home.chinaso.com/shangcheng.html">商城</a></li>' +
-                                    '</ul>' +
-                                    '<span class="newNavLine"></span>' +
-                                    '<ul class="listNewNav NavD">' +
-                                       
-                                        '<li><a target="_blank" href="http://tech.chinaso.com/" class="fBlod">科技</a></li>' +
-                                        '<li><a target="_blank" href="http://tuan.chinaso.com/" class="fBlod">团购</a></li>' +
-                                         '<li><a target="_blank" href="http://edu.chinaso.com/" class="fBlod">教育</a></li>' +
-                                        '<li><a target="_blank" href="http://shuhua.chinaso.com/" class="fBlod">书画</a></li>' +
-                                        '<li style="position:relative;"><a target="_blank" href="http://qy.chinaso.com/" class="fBlod">企业</a></li>' +
-                                        '<li><a target="_blank" href="http://image.chinaso.com/info" class="fBlod">图闻</a></li>' +
-                                    '</ul>' +
-                                    '<span class="newNavLine"></span>' +
-                                    '<ul class="listNewNav NavC">' +
-                                        '<li><a target="_blank" href="http://123.chinaso.com/health/" class="fBlod">健康</a></li>' +
-                                        '<li><a target="_blank" href="http://internet.chinaso.com/" class="fBlod">互联网</a></li>' +
-                                        '<li><a target="_blank" href="http://trip.chinaso.com/" class="fBlod">旅游</a></li>' +
-                                        '<li><a target="_blank" href="http://icity.chinaso.com/" class="fBlod">智慧城市</a></li>' +
-                                    '</ul>';
-                bannerDiv.innerHTML = innerHtml;
-                $(bannerDiv).insertBefore(bannerWrapper);
-            };
-        },30);
+//
+//        setTimeout(function(){
+//            if (isShowBanner) {
+//                var bannerWrapper = $(".head"),
+//                    _icoItems = CHANNELS["bannerNav"].items,
+//                    len = _icoItems.length,
+//                    bannerDiv = document.createElement("div"),
+//                    innerHtml = '';
+//
+//                bannerDiv.className = "verticalSearch";
+//                   innerHtml += '<ul class="listNewNav NavC">' +
+//                                     '<li><a target="_blank" href="http://news.chinaso.com/" class="fBlod">新闻</a></li>' +
+//                                     '<li><a target="_blank" href="http://local.chinaso.com/" class="fBlod">地方</a></li>' +
+//                                     '<li><a target="_blank" href="http://news.chinaso.com/newscommon/jsxw/index.html">即时</a></li>' +
+//                                     '<li><a target="_blank" href="http://politics.chinaso.com/" class="fBlod">时政</a></li>' +
+//                                     '<li><a target="_blank" href="http://nation.chinaso.com/" class="fBlod">国情</a></li>' +
+//                                     '<li><a target="_blank" href="http://social.chinaso.com/">社科</a></li>' +
+//                                  '</ul>'+
+//                                  '<span class="newNavLine"></span>' +
+//                                   '<ul class="listNewNav NavB">' +
+//                                        '<li><a target="_blank" href="http://world.chinaso.com/" class="fBlod">国际</a></li>' +
+//                                        '<li><a target="_blank" href="http://world.chinaso.com/wmjj/index.html">外媒</a></li>' +
+//                                        '<li><a target="_blank" href="http://sports.chinaso.com/" class="fBlod">体育</a></li>' +
+//                                        '<li><a target="_blank" href="http://sports.chinaso.com/tycpnews/index.html">彩票</a></li>' +
+//                                    '</ul>' +
+//                                    '<span class="newNavLine"></span>' +
+//                                    '<ul class="listNewNav NavB">' +
+//                                        '<li><a target="_blank" href="http://mil.chinaso.com/" class="fBlod">军事</a></li>' +
+//                                        '<li><a target="_blank" href="http://mil.chinaso.com/jmry/index.html">军迷</a></li>' +
+//                                        '<li><a target="_blank" href="http://finance.chinaso.com/" class="fBlod">财经</a></li>' +
+//                                        '<li><a target="_blank" href="http://finance.chinaso.com/jrsc/index.html">金融</a></li>' +
+//                                    '</ul>' +
+//                                    '<span class="newNavLine"></span>' +
+//                                    '<ul class="listNewNav NavB">' +
+//                                        '<li><a target="_blank" href="http://paper.chinaso.com/" class="fBlod">报刊</a></li>' +
+//                                        '<li><a target="_blank" href="http://paper.chinaso.com/minshengrexian/index.html">民生</a></li>' +
+//                                        '<li><a target="_blank" href="http://society.chinaso.com/" class="fBlod">社会</a></li>' +
+//                                        '<li><a target="_blank" href="http://society.chinaso.com/shgc/index.html">观察</a></li>' +
+//                                    '</ul>' +
+//                                    '<span class="newNavLine"></span>' +
+//                                    '<ul class="listNewNav NavB">' +
+//                                        '<li><a target="_blank" href="http://law.chinaso.com/" class="fBlod">法治</a></li>' +
+//                                        '<li><a target="_blank" href="http://law.chinaso.com/flfg/index.html">法规</a></li>' +
+//                                        '<li><a target="_blank" href="http://ent.chinaso.com/" class="fBlod">娱乐</a></li>' +
+//                                        '<li><a target="_blank" href="http://ent.chinaso.com/mingxing.html">星闻</a></li>' +
+//                                    '</ul>' +
+//                                    '<span class="newNavLine"></span>' +
+//                                    '<ul class="listNewNav NavB">' +
+//                                        '<li><a target="_blank" href="http://house.chinaso.com/beijing.html" class="fBlod">房产</a></li>' +
+//                                        '<li><a target="_blank" href="http://house.chinaso.com/searchBuilding/beijing?infotype=1&amp;n=10&amp;p=0&amp;buildingState=all&amp;orderBy=default">楼盘</a></li>' +
+//                                        '<li><a target="_blank" href="http://auto.chinaso.com/" class="fBlod">汽车</a></li>' +
+//                                        '<li><a target="_blank" href="http://auto.chinaso.com/daogou/shjpc.html">评测</a></li>' +
+//                                    '</ul>' +
+//                                    '<span class="newNavLine"></span>' +
+//                                    '<ul class="listNewNav NavB">' +
+//                                        '<li><a target="_blank" href="http://food.chinaso.com/" class="fBlod">食品</a></li>' +
+//                                        '<li><a target="_blank" href="http://food.chinaso.com/msfs/index.html">美食</a></li>' +
+//                                        '<li><a target="_blank" href="http://home.chinaso.com/" class="fBlod">家居</a></li>' +
+//                                        '<li><a target="_blank" href="http://home.chinaso.com/shangcheng.html">商城</a></li>' +
+//                                    '</ul>' +
+//                                    '<span class="newNavLine"></span>' +
+//                                    '<ul class="listNewNav NavD">' +
+//                                       
+//                                        '<li><a target="_blank" href="http://tech.chinaso.com/" class="fBlod">科技</a></li>' +
+//                                        '<li><a target="_blank" href="http://tuan.chinaso.com/" class="fBlod">团购</a></li>' +
+//                                         '<li><a target="_blank" href="http://edu.chinaso.com/" class="fBlod">教育</a></li>' +
+//                                        '<li><a target="_blank" href="http://shuhua.chinaso.com/" class="fBlod">书画</a></li>' +
+//                                        '<li style="position:relative;"><a target="_blank" href="http://qy.chinaso.com/" class="fBlod">企业</a></li>' +
+//                                        '<li><a target="_blank" href="http://image.chinaso.com/info" class="fBlod">图闻</a></li>' +
+//                                    '</ul>' +
+//                                    '<span class="newNavLine"></span>' +
+//                                    '<ul class="listNewNav NavC">' +
+//                                        '<li><a target="_blank" href="http://123.chinaso.com/health/" class="fBlod">健康</a></li>' +
+//                                        '<li><a target="_blank" href="http://internet.chinaso.com/" class="fBlod">互联网</a></li>' +
+//                                        '<li><a target="_blank" href="http://trip.chinaso.com/" class="fBlod">旅游</a></li>' +
+//                                        '<li><a target="_blank" href="http://icity.chinaso.com/" class="fBlod">智慧城市</a></li>' +
+//                                    '</ul>';
+//                bannerDiv.innerHTML = innerHtml;
+//                $(bannerDiv).insertBefore(bannerWrapper);
+//            };
+//        },30);
     }
     
 

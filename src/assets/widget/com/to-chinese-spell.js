@@ -1,7 +1,7 @@
 // 汉字拼音转换
 define("assets/widget/com/to-chinese-spell", ["assets/utils/util"], function (require, exports, module) {
     
-    "use strict";
+//    "use strict";
     
     var Util = require("assets/utils/util");
     
