@@ -1123,14 +1123,15 @@ document.write('<a  href="' + curPro + "//" + curHost + '" class="logo"></a>');
     <a href="/index/caijing/pic_list/gytplb.html">财经</a>
     <a href="/index/wyfxzti/pic_list/wyfxsp.html">网友分享专辑视频</a>
 </div>
-<script type="text/javascript" src="../src/assets/base/fetch.js"></script>
+<script type="text/javascript" src="src/assets/base/fetch.js"></script>
+<script type="text/javascript" src="assets/utils/util.js"></script>
 <script type="text/javascript">
     fetch.config = {
-        baseURL: "../",
-        debug: !0,
+        baseURL: "./",
         paths: {
             "jquery": "http://www.chinaso.com/common/base/js/jquery-1.9.1.min"
-        }
+        },
+        version: "2"
     };
     
     fetch("assets/widget/ui/toolbar/com-toolbar/toolbar");

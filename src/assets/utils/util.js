@@ -13,6 +13,8 @@ define("assets/utils/util", function (fetch, exports, module) {
         "[object RegExp]": "regexp",
         "[object String]": "string"
     },
+    core_toString = Class2type.toString,
+    core_hasOwn = Class2type.hasOwnProperty,
     Util = {
         extend: function () {
             var _this = this,
@@ -92,21 +94,10 @@ define("assets/utils/util", function (fetch, exports, module) {
         isDate: function (obj) {
             return Object.prototype.toString.call(obj) === "[object Date]";
         },
-        isEmpty: function(str) {
-			return (str && /^\s*$/.test(str));
-		},
         trim: function(str) {
             return str.replace(/(^\s*)|(\s*$)/g, "");
         }
     };
-
-    function core_toString() {
-        return this.prototype.toString();
-    }
-
-    function core_hasOwn() {
-        return this.hasOwnProperty();
-    }
     
     return Util;
     

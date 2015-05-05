@@ -1,24 +1,38 @@
 var config = exports;
 
-config["Fetch tests"] = {
+config["utils tests"] = {
     
     // or "node"
     environment: "browser",
     rootPath: "../",
-//    libs: ["src/assets/base/*.js"],
-    libs: ["require.js", "config.js"],
-    extensions: [require('buster-amd')],
-    "buster-amd": {
-        pathMapper: function (path) {
-          return path.
-                 // remove extension
-                 replace(/\.js$/, "").
-                 // replace leading slash with previous directory for test files
-                 replace(/^\//, "../");
-        }
-    },
-    sources: ["js/*.js"],
-    tests: ["test/*-test.js"],
+    libs: ["src/assets/base/fetch.js"],
+//    libs: ["require.js", "config.js"],
+//    extensions: [require('buster-amd')],
+//    "buster-amd": {
+//        pathMapper: function (path) {
+//          return path.
+//                 // remove extension
+//                 replace(/\.js$/, "").
+//                 // replace leading slash with previous directory for test files
+//                 replace(/^\//, "../");
+//        }
+//    },
+    sources: ["src/assets/utils/*.js"],
+    tests: ["test/utils/*-test.js"]
 }
 
-// Add more configuration groups as needed
+//config["widget/com tests"] = {
+//    environment: "browser",
+//    rootPath: "../",
+//    libs: ["src/assets/base/fetch.js"],
+//    sources: ["src/widget/com/*.js"],
+//    tests: ["test/widget/com/*-test.js"]
+//}
+//
+//config["widget/ui tests"] = {
+//    environment: "browser",
+//    rootPath: "../",
+//    libs: ["src/assets/base/fetch.js"],
+//    sources: ["src/widget/ui/*.js"],
+//    tests: ["test/widget/ui/*-test.js"]
+//}
