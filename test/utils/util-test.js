@@ -1,7 +1,7 @@
 //debugger;
 var assert = buster.assert;
 
-buster.testCase("My thing", {
+buster.testCase("util base", {
     "extend": function () {
         fetch("assets/utils/util", function (util) {
             
