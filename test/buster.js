@@ -1,5 +1,6 @@
 
 // http://docs.busterjs.org/en/latest/
+// http://docs.busterjs.org/en/latest/modules/referee/#referee
 var config = exports;
 
 config["utils tests"] = {
@@ -19,8 +20,8 @@ config["utils tests"] = {
 //                 replace(/^\//, "../");
 //        }
 //    },
-    sources: ["src/assets/utils/*.js"],
-    tests: ["test/utils/*-test.js"]
+    sources: ["src/assets/utils/**/*.js"],
+    tests: ["test/assets/utils/**/*-test.js"]
 }
 
 //config["widget/com tests"] = {
