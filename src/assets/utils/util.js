@@ -1,7 +1,5 @@
 define("assets/utils/util", function (fetch, exports, module) {
-    
     "use strict";
-    
     var Class2type = {
         "[object Array]": "array",
         "[object Boolean]": "boolean",
@@ -13,11 +11,11 @@ define("assets/utils/util", function (fetch, exports, module) {
         "[object RegExp]": "regexp",
         "[object String]": "string"
     },
-    core_toString = Class2type.toString,
-    core_hasOwn = Class2type.hasOwnProperty,
+    CORE_TOSTRING = Class2type.toString,
+    CORE_HASOWN = Class2type.hasOwnProperty,
     Util = {
         extend: function () {
-            var _this = this,
+            var T = this,
                 options, name, src, copy, copyIsArray, clone,
                 target = arguments[0] || {},
                 i = 1,
@@ -28,7 +26,7 @@ define("assets/utils/util", function (fetch, exports, module) {
                 target = arguments[1] || {};
                 i = 2;
             }
-            if (typeof target !== "object" && !_this.isFunction(target)) {
+            if (typeof target !== "object" && !T.isFunction(target)) {
                 target = {};
             }
             if (length === i) {
@@ -43,15 +41,16 @@ define("assets/utils/util", function (fetch, exports, module) {
                         if (target === copy) {
                             continue;
                         }
-                        if (deep && copy && (_this.isPlainObject(copy) || (copyIsArray = _this.isArray(copy)))) {
+                        if (deep && copy && (T.isPlainObject(copy) ||
+                                             (copyIsArray = T.isArray(copy)))) {
                             if (copyIsArray) {
                                 copyIsArray = false;
-                                clone = src && _this.isArray(src) ? src : [];
+                                clone = src && T.isArray(src) ? src : [];
 
                             } else {
-                                clone = src && _this.isPlainObject(src) ? src : {};
+                                clone = src && T.isPlainObject(src) ? src : {};
                             }
-                            target[name] = _this.extend(deep, clone, copy);
+                            target[name] = T.extend(deep, clone, copy);
                         } else if (copy !== undefined) {
                             target[name] = copy;
                         }
@@ -60,22 +59,26 @@ define("assets/utils/util", function (fetch, exports, module) {
             }
             return target;
         },
-        isFunction: function(obj) {
+        isFunction: function (obj) {
             return this.type(obj) === "function";
         },
-        type: function(obj) {
+        type: function (obj) {
             if (obj === null) {
                 return String(obj);
             }
-            return typeof obj === "object" || typeof obj === "function" ? Class2type[core_toString.call(obj)] || "object" : typeof obj;
+            return typeof obj === "object" || typeof obj === "function" ?
+                Class2type[CORE_TOSTRING.call(obj)] || "object" : typeof obj;
         },
-        isPlainObject: function(obj) {
-            var t = this;
-            if (!obj || t.type(obj) !== "object" || obj.nodeType || t.isWindow(obj)) {
+        isPlainObject: function (obj) {
+            var T = this;
+            if (!obj || T.type(obj) !== "object" ||
+                obj.nodeType || T.isWindow(obj)) {
                 return false;
             }
             try {
-                if (obj.constructor && !core_hasOwn.call(obj, "constructor") && !core_hasOwn.call(obj.constructor.prototype, "isPrototypeOf")) {
+                if (obj.constructor && !CORE_HASOWN.call(obj, "constructor") &&
+                    !CORE_HASOWN.call(obj.constructor.prototype,
+                                      "isPrototypeOf")) {
                     return false;
                 }
             } catch (e) {
@@ -83,22 +86,20 @@ define("assets/utils/util", function (fetch, exports, module) {
             }
             var key;
             for (key in obj) {}
-            return key === undefined || core_hasOwn.call(obj, key);
+            return key === undefined || CORE_HASOWN.call(obj, key);
         },
-        isWindow: function(obj) {
+        isWindow: function (obj) {
             return obj !== null && obj == obj.window;
         },
-        isArray: function(obj) {
-            return Object.prototype.toString.call(obj) === '[object Array]';
+        isArray: function (obj) {
+            return Object.prototype.toString.call(obj) === "[object Array]";
         },
         isDate: function (obj) {
             return Object.prototype.toString.call(obj) === "[object Date]";
         },
-        trim: function(str) {
+        trim: function (str) {
             return str.replace(/(^\s*)|(\s*$)/g, "");
         }
     };
-    
     return Util;
-    
 });
