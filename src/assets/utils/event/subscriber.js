@@ -6,12 +6,15 @@ define("assets/utils/event/subscriber", ["assets/utils/util", "assets/utils/even
         Dispatcher = fetch("assets/utils/event/dispatcher");
     
 	function Subscriber (setting) {
-		var arrs = setting.attrs.split(";"),
+		var arrs,
 			i,
 			keymap = {};
-		for (i = 0; keymap = this.invert(arrs)[i++];) {
-			Dispatcher.eventCenter.addEventListener(keymap.type, setting.fn, setting.owner, setting.args);
-		}
+		if (setting.attrs) {
+            arrs = setting.attrs.split(";");
+            for (i = 0; keymap = this.invert(arrs)[i++];) {
+                Dispatcher.eventCenter.addEventListener(keymap.type, setting.fn, setting.owner, setting.args);
+            }
+        }
 	}
     
 	Util.extend(Subscriber.prototype, {

@@ -38,14 +38,17 @@ define("assets/utils/event/dispatcher", function (require, exports, module) {
         dispatch: function (eventName, e) {
             var T = this,
                 i,
-                len = T.eventMap[eventName].length,
+                len,
                 item;
-            e = e || {};
-            for (i = 0; i < len; i++) {
-                item = T.eventMap[eventName][i];
-                if (item) {
-                    item.args.unshift(e);
-                    item.handler.apply(item.target, item.args);
+            if (T.eventMap[eventName]) {
+                len = T.eventMap[eventName].length;
+                e = e || {};
+                for (i = 0; i < len; i++) {
+                    item = T.eventMap[eventName][i];
+                    if (item) {
+                        item.args.unshift(e);
+                        item.handler.apply(item.target, item.args);
+                    }
                 }
             }
         }
