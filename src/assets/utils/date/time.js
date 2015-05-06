@@ -7,6 +7,8 @@ define("assets/utils/date/time", ["assets/utils/util"], function (require, expor
     var Util = require("assets/utils/util");
     
     var Time = {
+        
+        // 获得星期字符形式
         getDay: function () {
             var arr = ["日", "一", "二", "三", "四", "五", "六"];
             var day = "周" + arr[new Date().getDay()];
@@ -25,7 +27,8 @@ define("assets/utils/date/time", ["assets/utils/util"], function (require, expor
             return (new Date(strDate[0], (strDate[1] - parseInt(1)), strDate[2], strTime[0], strTime[1], (strTime[2]?strDate[2]:0)));
         },
         datafomatZero: function(param) {
-            return param < 10 ? "0" + param : param;
+            param = ~~param;
+            return param < 10 ? "0" + param : param + "";
         },
         
          // 显示绝对时间
