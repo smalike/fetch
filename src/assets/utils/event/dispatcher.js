@@ -1,3 +1,6 @@
+
+// 事件派发者
+// 处理订阅事件绑定和事件发布触发
 define("assets/utils/event/dispatcher", function (require, exports, module) {
     
     "use strict";

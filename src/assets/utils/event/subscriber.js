@@ -1,3 +1,5 @@
+
+// 事件订阅对象
 define("assets/utils/event/subscriber", ["assets/utils/util", "assets/utils/event/dispatcher"], function (fetch, exports, module) {
     
     "use strict";
@@ -12,12 +14,17 @@ define("assets/utils/event/subscriber", ["assets/utils/util", "assets/utils/even
 		if (setting.attrs) {
             arrs = setting.attrs.split(";");
             for (i = 0; keymap = this.invert(arrs)[i++];) {
+                
+                // 绑定指定 type 类型事件到事件中心
                 Dispatcher.eventCenter.addEventListener(keymap.type, setting.fn, setting.owner, setting.args);
             }
         }
 	}
     
 	Util.extend(Subscriber.prototype, {
+        
+        // 转换数组内字符串为对象
+        // ["a:aa", "b:bb"]
 		invert: function (arrs) {
 			var item,
 				i,

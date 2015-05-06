@@ -1,3 +1,5 @@
+
+// 事件发布对象
 define("assets/utils/event/publish", ["assets/utils/util", "assets/utils/event/dispatcher"], function (fetch, exprots, module) {
     
     "use strict";
@@ -12,12 +14,17 @@ define("assets/utils/event/publish", ["assets/utils/util", "assets/utils/event/d
 		if (setting.attrs) {
 			arrs = setting.attrs.split(";");
 			for (i = 0; keymap = this.invert(arrs)[i++];) {
+                
+                // 触发指定 type 类型事件
 				Dispatcher.eventCenter.dispatch(keymap.type);
 			}
 		}
 	}
     
 	Util.extend(Publish.prototype, {
+        
+        // 转换数组内字符串为对象
+        // ["a:aa", "b:bb"]
 		invert: function (arrs) {
 			var item,
 				i,
