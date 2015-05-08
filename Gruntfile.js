@@ -24,6 +24,17 @@ module.exports = function (grunt) {
                 "static/js/idx.build.js"
             ]
         },
+        pathcheck: {
+            default_options: {
+                options: {
+                    basePath: "src/",
+                    notCheckDependencePaths: ["jquery"]
+                },
+                files: {
+                    "tmp/default_options": ["src/assets/**/*.js"]
+                }
+            }
+        },
         cssmin: {
             options: {
                 banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' + '<%= grunt.template.today("yyyy-mm-dd HH:MM:ss") %> */'
@@ -152,6 +163,9 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-contrib-concat");
     grunt.loadNpmTasks("grunt-contrib-uglify");
     grunt.loadNpmTasks("grunt-css");
+    grunt.loadNpmTasks("pathcheck");
+    
+    grunt.registerTask("pc", ["pathcheck"]);
     
     grunt.registerTask("cssminIndex", ["cssmin:index"]);
 

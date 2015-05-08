@@ -13,5 +13,8 @@
     "grunt-css": "~0.5.4",
     "buster": "~0.6.0",
     "buster-amd": "~0.3.0"
+  },
+  "dependencies": {
+    "pathcheck": "^0.1.2"
   }
 }
