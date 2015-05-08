@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "",
   "main": "Gruntfile.js",
-  "devDependencies": {
+  "dependencies": {
     "grunt": "~0.4.5",
     "grunt-contrib-jshint": "~0.10.0",
     "grunt-contrib-uglify": "~0.2.2",
@@ -12,9 +12,7 @@
     "grunt-contrib-watch": "~0.6.1",
     "grunt-css": "~0.5.4",
     "buster": "~0.6.0",
-    "buster-amd": "~0.3.0"
-  },
-  "dependencies": {
+    "buster-amd": "~0.3.0",
     "pathcheck": "^0.1.2"
   }
 }
