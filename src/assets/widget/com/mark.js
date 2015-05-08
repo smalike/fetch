@@ -1,5 +1,5 @@
 // 加入收藏
-define("", ["assets/utils/util"], function (require, exports, module) {
+define("assets/widget/com/mark", ["assets/utils/util"], function (require, exports, module) {
     
     "use strict";
     

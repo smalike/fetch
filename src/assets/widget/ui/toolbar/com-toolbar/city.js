@@ -1,6 +1,6 @@
 
 // 城市处理函数
-define("", ["assets/widget/com/jsonp"], function (require, exports, module) {
+define("assets/widget/ui/toolbar/com-toolbar/city", ["assets/widget/com/jsonp"], function (require, exports, module) {
     
     "use strict";
     

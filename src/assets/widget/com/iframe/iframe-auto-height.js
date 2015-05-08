@@ -1,4 +1,4 @@
-define("common:chinaso/page/controller/iframeAutoHeight", function (require, exports, module) {
+define("assets/widget/com/iframe/iframe-auto-height", function (require, exports, module) {
     "use strict";
     function iframeAutoHeight(setting) {
         var self = this;
