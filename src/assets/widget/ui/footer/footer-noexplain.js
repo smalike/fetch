@@ -1,4 +1,4 @@
-define("assets/widget/ui/footer/footer", ["jquery"], function (require, exports, module) {
+define("widget/ui/footer/footer", ["jquery"], function (require, exports, module) {
 
     "use strict";
     

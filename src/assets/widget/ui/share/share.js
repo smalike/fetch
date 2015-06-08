@@ -1,12 +1,12 @@
 // 分享组件
-define("assets/widget/ui/share/share", ["assets/utils/event/event", "assets/utils/util", "assets/widget/ui/share/theme", "assets/widget/ui/share/to"], function (fetch, exports, module) {
+define("widget/ui/share/share", ["utils/event/event", "utils/util", "widget/ui/share/theme", "widget/ui/share/to"], function (fetch, exports, module) {
     
     "use strict";
     
-    var Event = fetch("assets/utils/event/event"),
-        Util = fetch("assets/utils/util"),
-        Theme = fetch("assets/widget/ui/share/theme"),
-        To = fetch("assets/widget/ui/share/to");
+    var Event = fetch("utils/event/event"),
+        Util = fetch("utils/util"),
+        Theme = fetch("widget/ui/share/theme"),
+        To = fetch("widget/ui/share/to");
     
     function Share(setting) {
         var _this = this;
@@ -16,7 +16,7 @@ define("assets/widget/ui/share/share", ["assets/utils/event/event", "assets/util
             themeType: "style0-24",
 
             // 主题样式文件路径
-            cssPath: "assets/widget/ui/share/",
+            cssPath: "widget/ui/share/",
 
             // 显示分享平台元数据列表
             list: ["tsina", "qzone", "tqq", "renren", "douban"],

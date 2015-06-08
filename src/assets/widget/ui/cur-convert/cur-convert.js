@@ -1,6 +1,6 @@
 // 切换同级节点选中状态
 // 自定义event
-define("assets/widget/ui/cur-convert/cur-convert", ["jquery"], function (require, exports, module) {
+define("widget/ui/cur-convert/cur-convert", ["jquery"], function (require, exports, module) {
     
     "use strict";
     

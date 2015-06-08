@@ -1,10 +1,10 @@
 
 // 城市处理函数
-define("assets/widget/ui/toolbar/com-toolbar/city", ["assets/widget/com/jsonp"], function (require, exports, module) {
+define("widget/ui/toolbar/com-toolbar/city", ["widget/com/jsonp"], function (require, exports, module) {
     
     "use strict";
     
-    var JSONP = require("assets/widget/com/jsonp");
+    var JSONP = require("widget/com/jsonp");
     
     var City = {
 

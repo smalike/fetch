@@ -1,9 +1,9 @@
 // 加入收藏
-define("assets/widget/com/mark", ["assets/utils/util"], function (require, exports, module) {
+define("widget/com/mark", ["utils/util"], function (require, exports, module) {
     
     "use strict";
     
-    var Util = require("assets/utils/util");
+    var Util = require("utils/util");
     
     function Mark() {
         this.defaults = {

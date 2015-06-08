@@ -1,11 +1,11 @@
 
 // 事件发布对象
-define("assets/utils/event/publish", ["assets/utils/util", "assets/utils/event/dispatcher"], function (fetch, exprots, module) {
+define("utils/event/publish", ["utils/util", "utils/event/dispatcher"], function (fetch, exprots, module) {
     
     "use strict";
     
-	var Util = fetch("assets/utils/util"),
-        Dispatcher = fetch("assets/utils/event/dispatcher");
+	var Util = fetch("utils/util"),
+        Dispatcher = fetch("utils/event/dispatcher");
     
 	function Publish (setting) {
 		var arrs,

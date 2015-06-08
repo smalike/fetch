@@ -1,9 +1,9 @@
 // 本地存储
-define("assets/utils/storage", ["assets/utils/json2"], function (require, exports, module) {
+define("utils/storage", ["utils/json2"], function (require, exports, module) {
     
     "use strict";
     
-    var JSON2 = require("assets/utils/json2");
+    var JSON2 = require("utils/json2");
     
     function Storage(e, t, n) {
         var r = this;

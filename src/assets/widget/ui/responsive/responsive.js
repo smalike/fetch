@@ -1,9 +1,9 @@
-define("assets/widget/ui/responsive/responsive", ["assets/utils/event/dispatcher", "assets/widget/ui/nav/responsive-nav", "jquery"], function (require, exports, module) {
+define("widget/ui/responsive/responsive", ["utils/event/dispatcher", "widget/ui/nav/responsive-nav", "jquery"], function (require, exports, module) {
     
     "use strict";
     
-    var eventDispatcher = require("assets/utils/event/dispatcher"),
-        nav = require("assets/widget/ui/nav/responsive-nav"),
+    var eventDispatcher = require("utils/event/dispatcher"),
+        nav = require("widget/ui/nav/responsive-nav"),
         jQuery = require("jquery");
 	function responsive(setting) {
 		this.defaults = {

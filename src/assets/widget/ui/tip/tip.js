@@ -1,10 +1,10 @@
 // 提示组件
 // @author jlj
-define("assets/widget/ui/tip/tip", ["assets/utils/util"], function (fetch, exports, module) {
+define("widget/ui/tip/tip", ["utils/util"], function (fetch, exports, module) {
     
     "use strict";
     
-    var Utils = fetch("assets/utils/util");
+    var Utils = fetch("utils/util");
     
     function Tip(setting) {
         var T = this;
@@ -24,7 +24,7 @@ define("assets/widget/ui/tip/tip", ["assets/utils/util"], function (fetch, expor
             
             isLoadCss: !0,
             baseCssPath: "",
-            cssPath: "assets/widget/ui/tip/tip.css"
+            cssPath: "widget/ui/tip/tip.css"
         };
         Utils.extend(T.defaults, setting);
         T.defaults.isLoadCss && T.loadCss(T.defaults.baseCssPath + T.defaults.cssPath);

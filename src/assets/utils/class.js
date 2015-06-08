@@ -1,4 +1,4 @@
-define("assets/utils/class", function (fetch, exports, module) {
+define("utils/class", function (fetch, exports, module) {
     
     var Class = (function() {
         var _mix = function(r, s) {

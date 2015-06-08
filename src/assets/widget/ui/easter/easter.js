@@ -1,8 +1,8 @@
-define("assets/widget/ui/easter/easter", ["assets/utils/console"], function (require, exports, module) {
+define("widget/ui/easter/easter", ["utils/console"], function (require, exports, module) {
     
     "use strict";
     
-    require("assets/utils/console");
+    require("utils/console");
     
     var Easter = {
         log: function () {

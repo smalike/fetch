@@ -1,10 +1,10 @@
 
 // 时间农历转换
-define("assets/utils/date/lunar-calendar", ["assets/utils/util"], function (require, exports, module) {
+define("utils/date/lunar-calendar", ["utils/util"], function (require, exports, module) {
     
     "use strict";
     
-    var Util = require("assets/utils/util");
+    var Util = require("utils/util");
     
     // 获取农历显示日期
     function LunarCalendar(setting) {

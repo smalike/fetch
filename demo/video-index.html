@@ -1123,24 +1123,22 @@ document.write('<a  href="' + curPro + "//" + curHost + '" class="logo"></a>');
     <a href="/index/caijing/pic_list/gytplb.html">财经</a>
     <a href="/index/wyfxzti/pic_list/wyfxsp.html">网友分享专辑视频</a>
 </div>
-<script type="text/javascript" src="src/assets/base/fetch.js"></script>
-<script type="text/javascript" src="assets/utils/util.js"></script>
+<script type="text/javascript" src="http://www.chinaso.com/common/component/fetch/src/assets/fetch.js"></script>
 <script type="text/javascript">
     fetch.config = {
-        baseURL: "./",
         paths: {
             "jquery": "http://www.chinaso.com/common/base/js/jquery-1.9.1.min"
         },
-        version: "2"
+        timestamp: "2"
     };
     
-    fetch("assets/widget/ui/toolbar/com-toolbar/toolbar");
-    fetch("assets/widget/ui/footer/footer");
-    fetch("assets/widget/ui/vertical-toolbar/vertical-toolbar");
-//    fetch("assets/widget/ui/common-search-nav/common-search-nav");
+    fetch("widget/ui/toolbar/com-toolbar/toolbar");
+    fetch("widget/ui/footer/footer");
+    fetch("widget/ui/vertical-toolbar/vertical-toolbar");
+//    fetch("widget/ui/common-search-nav/common-search-nav");
     
     ! function() {
-        fetch("assets/widget/ui/lazyload/jquery-image-lazyload", ["jquery"], function (lazy, $) {
+        fetch("widget/ui/lazyload/jquery-image-lazyload", ["jquery"], function (lazy, $) {
             $("img[data-original]").show().lazyload({
                 event: "scroll",
                 threshold: 10,
@@ -1169,13 +1167,13 @@ document.write('<a  href="' + curPro + "//" + curHost + '" class="logo"></a>');
         });
     }();
     
-    fetch(["assets/widget/ui/slider/slider"], function(slider) {
+    fetch(["widget/ui/slider/slider"], function(slider) {
         slider.build(".video-focus");
     });
-    fetch(["assets/widget/ui/responsive/responsive"], function(responsive) {
+    fetch(["widget/ui/responsive/responsive"], function(responsive) {
         responsive.build();
     });
-    fetch(["assets/widget/ui/carousel/carousel"], function(carousel) {
+    fetch(["widget/ui/carousel/carousel"], function(carousel) {
         carousel.build(".zhuiju");
         carousel.build({
             container: "#Id_hanju",
@@ -1208,7 +1206,7 @@ document.write('<a  href="' + curPro + "//" + curHost + '" class="logo"></a>');
             rightEle: ".arrow-r"
         });
     });
-    fetch("assets/utils/event/subscriber", ["jquery"], function(subscriber, $) {
+    fetch("utils/event/subscriber", ["jquery"], function(subscriber, $) {
         subscriber({
             attrs: $(".small-imgBanner .arr-left").data("bind"),
             fn: function() {
@@ -1219,7 +1217,7 @@ document.write('<a  href="' + curPro + "//" + curHost + '" class="logo"></a>');
         subscriber({
             attrs: $(".new-video").data("carousel"),
             fn: function() {
-                fetch(["assets/widget/ui/carousel/carousel"], function(carousel) {
+                fetch(["widget/ui/carousel/carousel"], function(carousel) {
                     carousel.build(".new-video");
                 });
             }
@@ -1236,17 +1234,17 @@ document.write('<a  href="' + curPro + "//" + curHost + '" class="logo"></a>');
             }
         });
     });
-    fetch(["assets/widget/ui/lazyload/dom-lazyload"], ["assets/utils/event/publish"], function(domLazyload, Publish) {
+    fetch(["widget/ui/lazyload/dom-lazyload"], ["utils/event/publish"], function(domLazyload, Publish) {
         var dllex = domLazyload.build();
         dllex.publish = function ($cur) {
             Publish({attrs: $cur.data("bind")});
             Publish({attrs: $cur.data("carousel")});
         }
     });
-    fetch(["assets/widget/ui/lazyload/text-lazyload"], function(textLazyload) {
+    fetch(["widget/ui/lazyload/text-lazyload"], function(textLazyload) {
         textLazyload.initialize();
     });
-    fetch(["assets/widget/ui/cur-convert/cur-convert"], function(curConvert) {
+    fetch(["widget/ui/cur-convert/cur-convert"], function(curConvert) {
         curConvert.build({
             container: ".zhuiju ul li",
             item: "dd p",
@@ -1255,7 +1253,7 @@ document.write('<a  href="' + curPro + "//" + curHost + '" class="logo"></a>');
         });
     });
     
-    fetch("assets/widget/ui/switch/item-switch", function (itemSwitch) {
+    fetch("widget/ui/switch/item-switch", function (itemSwitch) {
         itemSwitch.build({container: ".col-right", item: "#tab-banner ul li", content: "#tab-ctn .col-right-ctn"});
         itemSwitch.build({container: ".col-right", item: ".vd-ahead-tab ul li", content: ".tv-box ul.tv"});
         itemSwitch.build({container: ".col-right", item: ".jianBian-tab ul li", content: ".jb-conBox .jb-ctn"});

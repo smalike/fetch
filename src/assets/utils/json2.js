@@ -1,5 +1,5 @@
 // JSON2 json对象转换
-define("assets/utils/json2", function (require, exprots, module) {
+define("utils/json2", function (require, exprots, module) {
     
     "use strict";
     

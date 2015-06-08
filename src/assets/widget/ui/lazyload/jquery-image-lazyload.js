@@ -13,7 +13,7 @@
  *
  */
 
-define("assets/widget/ui/lazyload/jquery-image-lazyload", ["jquery"], function (require, exports, module) {
+define("widget/ui/lazyload/jquery-image-lazyload", ["jquery"], function (require, exports, module) {
     
     "use strict";
     

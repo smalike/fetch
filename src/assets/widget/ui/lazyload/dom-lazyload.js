@@ -1,9 +1,9 @@
-define("assets/widget/ui/lazyload/dom-lazyload", ["assets/utils/util", "assets/utils/event/publish", "jquery"], function (require, exports, module) {
+define("widget/ui/lazyload/dom-lazyload", ["utils/util", "utils/event/publish", "jquery"], function (require, exports, module) {
     
     "use strict";
     
-    var Utils = require("assets/utils/util"),
-        Publish = require("assets/utils/event/publish"),
+    var Utils = require("utils/util"),
+        Publish = require("utils/event/publish"),
         $ = require("jquery");
     function DomLazyload(setting) {
         var T = this;

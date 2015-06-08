@@ -1,4 +1,4 @@
-define("assets/widget/ui/slider/slider", ["jquery"], function (require, exports, module) {
+define("widget/ui/slider/slider", ["jquery"], function (require, exports, module) {
     
     "use strict";
     
@@ -141,7 +141,7 @@ define("assets/widget/ui/slider/slider", ["jquery"], function (require, exports,
             }
             this.$liItem.parent().children(":lt(" + this.showIndex + ")").hide().end().children(":gt(" + (this.showIndex) + ")").show();
             this.$liItem.eq(this.showIndex).show();
-            require(["assets/utils/event/publish"], function (publish) {
+            require(["utils/event/publish"], function (publish) {
                 publish({attrs: self.$smallCon.find("a.arr-left").data("bind")});
             });
         },

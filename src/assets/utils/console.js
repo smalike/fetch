@@ -1,9 +1,9 @@
 // console
-define("assets/utils/console", ["assets/utils/util"], function (require, exports, module) {
+define("utils/console", ["utils/util"], function (require, exports, module) {
 
     "use strict";
 
-    var Util = require("assets/utils/util");
+    var Util = require("utils/util");
 
     function Console() {
         var T = this;

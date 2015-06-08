@@ -1,0 +1,2 @@
+/*! fetch-Module - v0.1.0 - 2015-05-12 09:54:18 */
+define("widget/com/ie/ie-version",function(){function a(){for(var a=3,b=document.createElement("div"),c=b.getElementsByTagName("i");b.innerHTML="<!--[if gt IE "+ ++a+"]><i></i><![endif]-->",c[0];);return a>4?a:0}return a()});

@@ -1,0 +1,5 @@
+{
+    "jscodehints.detectedExclusions": [
+        "common:chinaso/page/controller/iframeAutoHeight.js"
+    ]
+}

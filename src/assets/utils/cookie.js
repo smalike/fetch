@@ -1,4 +1,4 @@
-define("assets/utils/cookie", function (fetch, exports, module) {
+define("utils/cookie", function (fetch, exports, module) {
     
     var Cookie = {
         get: function(name, decode) {

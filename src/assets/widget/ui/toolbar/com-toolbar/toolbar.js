@@ -1,17 +1,17 @@
-define("assets/widget/ui/toolbar/com-toolbar/toolbar", ["assets/widget/com/jsonp", "assets/utils/cookie", "assets/utils/util", "assets/utils/event/event", "assets/utils/date/time", "assets/widget/ui/toolbar/com-toolbar/weather", "assets/utils/date/lunar-calendar", "assets/widget/ui/easter/easter", "jquery", "assets/widget/ui/passport/passport", "assets/widget/ui/set-home/set-home"], function (require, exports, module) {
+define("widget/ui/toolbar/com-toolbar/toolbar", ["widget/com/jsonp", "utils/cookie", "utils/util", "utils/event/event", "utils/date/time", "widget/ui/toolbar/com-toolbar/weather", "utils/date/lunar-calendar", "widget/ui/easter/easter", "jquery", "widget/ui/passport/passport", "widget/ui/set-home/set-home"], function (require, exports, module) {
     
     "use strict";
     
-    var JSONP = require("assets/widget/com/jsonp"),
-        Cookie = require("assets/utils/cookie"),
-        Util = require("assets/utils/util"),
-        Event = require("assets/utils/event/event"),
-        Time = require("assets/utils/date/time"),
-        Weather = require("assets/widget/ui/toolbar/com-toolbar/weather")(),
-        Easter = require("assets/widget/ui/easter/easter"),
-        LunarCalendar = require("assets/utils/date/lunar-calendar")(),
-        Passport = require("assets/widget/ui/passport/passport"),
-        SetHome = require("assets/widget/ui/set-home/set-home"),
+    var JSONP = require("widget/com/jsonp"),
+        Cookie = require("utils/cookie"),
+        Util = require("utils/util"),
+        Event = require("utils/event/event"),
+        Time = require("utils/date/time"),
+        Weather = require("widget/ui/toolbar/com-toolbar/weather")(),
+        Easter = require("widget/ui/easter/easter"),
+        LunarCalendar = require("utils/date/lunar-calendar")(),
+        Passport = require("widget/ui/passport/passport"),
+        SetHome = require("widget/ui/set-home/set-home"),
         $ = require("jquery");
     
     function Toolbar(setting) {

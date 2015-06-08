@@ -1,9 +1,9 @@
-define("assets/widget/ui/passport/passport", ["assets/utils/util", "assets/widget/com/jsonp"], function (require, exports, module) {
+define("widget/ui/passport/passport", ["utils/util", "widget/com/jsonp"], function (require, exports, module) {
     
     "use strict";
     
-    var Util = require("assets/utils/util"),
-        JSONP = require("assets/widget/com/jsonp");
+    var Util = require("utils/util"),
+        JSONP = require("widget/com/jsonp");
     
     function Passport(setting) {
         this.defaults = {

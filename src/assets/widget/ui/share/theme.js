@@ -1,5 +1,5 @@
 // 分享组件主题样式
-define("assets/widget/ui/share/theme", function (fetch, exports, module) {
+define("widget/ui/share/theme", function (fetch, exports, module) {
     "use strict";
     var Theme = {
         config: {

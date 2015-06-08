@@ -9,7 +9,7 @@
 	"fileExtensions": [".js"],
 	"requireOperatorBeforeLineBreak": true,
 	"maximumLineLength": {
-        "value": 80,
+        "value": 120,
         "allowComments": true,
         "allowComments": true,
         "allowRegex": true
@@ -17,7 +17,7 @@
 	"disallowMultipleLineStrings": true,
 	"disallowMixedSpacesAndTabs": true,
 	"disallowTrailingWhitespace": true,
-    "disallowCapitalizedComments": true,
+    //"disallowCapitalizedComments": true,
     "disallowDanglingUnderscores": {"allExcept": ["_exception"]},
     "disallowKeywordsOnNewLine": ["else", "catch"],
     "disallowKeywords": ["with"],

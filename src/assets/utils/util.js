@@ -1,4 +1,4 @@
-define("assets/utils/util", function (fetch, exports, module) {
+define("utils/util", function (fetch, exports, module) {
     "use strict";
     var Class2type = {
         "[object Array]": "array",

@@ -1,6 +1,6 @@
 
 // DOM 基本操作
-define("assets/widget/com/dom/selector", function (require, exports, module) {
+define("widget/com/dom/selector", function (require, exports, module) {
     
     "use strict";
     

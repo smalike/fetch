@@ -1,5 +1,5 @@
 // 分享跳转平台组件
-define("assets/widget/ui/share/to", function (fetch, exports, module) {
+define("widget/ui/share/to", function (fetch, exports, module) {
     "use strict";
     
     var To = {

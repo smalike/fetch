@@ -1,4 +1,4 @@
-define("assets/widget/com/ie/ie-version", function () {
+define("widget/com/ie/ie-version", function () {
 	function ieVersion() {
         var v = 3,
             div = document.createElement('div'),

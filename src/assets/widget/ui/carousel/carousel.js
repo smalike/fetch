@@ -1,4 +1,4 @@
-define("assets/widget/ui/carousel/carousel", ["jquery"], function (require, exports, module) {
+define("widget/ui/carousel/carousel", ["jquery"], function (require, exports, module) {
     
     "use strict";
     

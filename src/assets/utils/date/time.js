@@ -1,10 +1,10 @@
 
 // 处理显示当前日期
-define("assets/utils/date/time", ["assets/utils/util"], function (require, exports, module) {
+define("utils/date/time", ["utils/util"], function (require, exports, module) {
     
     "use strict";
     
-    var Util = require("assets/utils/util");
+    var Util = require("utils/util");
     
     var Time = {
         

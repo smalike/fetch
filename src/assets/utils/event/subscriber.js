@@ -1,11 +1,11 @@
 
 // 事件订阅对象
-define("assets/utils/event/subscriber", ["assets/utils/util", "assets/utils/event/dispatcher"], function (fetch, exports, module) {
+define("utils/event/subscriber", ["utils/util", "utils/event/dispatcher"], function (fetch, exports, module) {
     
     "use strict";
     
-	var Util = fetch("assets/utils/util"),
-        Dispatcher = fetch("assets/utils/event/dispatcher");
+	var Util = fetch("utils/util"),
+        Dispatcher = fetch("utils/event/dispatcher");
     
 	function Subscriber (setting) {
 		var arrs,

@@ -1,4 +1,4 @@
-define("assets/widget/ui/switch/item-switch", ["jquery"], function (require, exports, module) {
+define("widget/ui/switch/item-switch", ["jquery"], function (require, exports, module) {
     
     "use strict";
     

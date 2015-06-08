@@ -1,5 +1,5 @@
 // 设为主页
-define("assets/widget/ui/set-home/set-home", function (require, exports, module) {
+define("widget/ui/set-home/set-home", function (require, exports, module) {
     
     "use strict";
     

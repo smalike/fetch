@@ -1,12 +1,12 @@
 
 // 天气情况显示
 // 调用本地存储功能
-define("assets/widget/ui/toolbar/com-toolbar/weather", ["assets/utils/util", "assets/utils/storage"], function (require, exports, module) {
+define("widget/ui/toolbar/com-toolbar/weather", ["utils/util", "utils/storage"], function (require, exports, module) {
     
     "use strict";
     
-    var Util = require("assets/utils/util"),
-        Storage = require("assets/utils/storage");
+    var Util = require("utils/util"),
+        Storage = require("utils/storage");
     
     function Weather(setting) {
         var T = this;

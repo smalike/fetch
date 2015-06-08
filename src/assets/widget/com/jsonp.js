@@ -1,6 +1,6 @@
 
 // 处理异步请求jsonp方式
-define("assets/widget/com/jsonp", function (require, exports, module) {
+define("widget/com/jsonp", function (require, exports, module) {
     
     function JSONP(url, callback) {
         var s = document.createElement("script"),

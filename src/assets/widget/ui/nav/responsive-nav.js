@@ -1,9 +1,9 @@
-define("assets/widget/ui/nav/responsive-nav", ["assets/utils/util", "assets/utils/event/dispatcher", "jquery"], function (require, exports, module) {
+define("widget/ui/nav/responsive-nav", ["utils/util", "utils/event/dispatcher", "jquery"], function (require, exports, module) {
     
     "use strict";
     
-    var utils = require("assets/utils/util"),
-        eventDispatcher = require("assets/utils/event/dispatcher"),
+    var utils = require("utils/util"),
+        eventDispatcher = require("utils/event/dispatcher"),
         $ = require("jquery");
     
     function Nav(setting) {

@@ -1,5 +1,5 @@
 // IE6, 7 提示浏览器过旧
-define("assets/widget/ui/ie/tip-ie-old", function () {
+define("widget/ui/ie/tip-ie-old", function () {
     
     "use strict";
     

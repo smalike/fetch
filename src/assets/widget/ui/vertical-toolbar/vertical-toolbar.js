@@ -1,4 +1,4 @@
-define("assets/widget/ui/vertical-toolbar/vertical-toolbar", ["assets/utils/util", "jquery"], function (require, exports, module) {
+define("widget/ui/vertical-toolbar/vertical-toolbar", ["utils/util", "jquery"], function (require, exports, module) {
     
     "use strict";
     

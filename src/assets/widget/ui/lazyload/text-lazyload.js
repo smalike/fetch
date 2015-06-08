@@ -1,8 +1,8 @@
-define("assets/widget/ui/lazyload/text-lazyload", ["assets/utils/util", "jquery"], function (require, exports, module) {
+define("widget/ui/lazyload/text-lazyload", ["utils/util", "jquery"], function (require, exports, module) {
     
     "use strict";
     
-    var Utils = require("assets/utils/util"),
+    var Utils = require("utils/util"),
         $ = require("jquery");
     
     var TextConvertDom = {
